@@ -1,4 +1,4 @@
-package zemmahi.youssef.myapplicationinit;
+package zemmahi.youssef.letsmeet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
