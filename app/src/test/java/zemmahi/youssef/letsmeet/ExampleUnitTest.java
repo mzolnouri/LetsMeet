@@ -1,4 +1,4 @@
-package zemmahi.youssef.letsmeet;
+package inf8405.tp2.letsmeet;
 
 import org.junit.Test;
 

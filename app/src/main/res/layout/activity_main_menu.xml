@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtVwWelcomeMsg"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="Welcome to Let's Meet application"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="#0b1"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/txtVwSignInToAccountMsg"
+        android:layout_below="@+id/txtVwWelcomeMsg"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="Sign in to your account"
+        android:gravity="center"
+        />
+    <AutoCompleteTextView
+        android:id="@+id/mACTxtVwUserNameMMenu"
+        android:layout_below="@+id/txtVwSignInToAccountMsg"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:hint="User name"
+        />
+    <EditText
+        android:id="@+id/edtTxtPasswordMMenu"
+        android:layout_below="@+id/mACTxtVwUserNameMMenu"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Password"
+        android:inputType="textPassword"
+        />
+    <Button
+        android:id="@+id/btnSignInMMenu"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/edtTxtPasswordMMenu"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="ChooseGroup"
+        android:text="Sign In"
+        android:enabled="true"
+        tools:ignore="UnknownId" />
+    <TextView
+        android:id="@+id/txtVwEmptySpaceMMenu"
+        android:layout_below="@+id/btnSignInMMenu"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:gravity="center"
+        />
+    <TextView
+        android:id="@+id/txtVwSingUpMsgMMenu"
+        android:layout_below="@+id/txtVwEmptySpaceMMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="New to Letsmeet?"
+        android:gravity="center"
+        />
+    <Button
+        android:id="@+id/btnSignUpMMenu"
+        android:layout_below="@+id/txtVwSingUpMsgMMenu"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:onClick="SignUp"
+        android:text="Sign up for a new account"
+        />
+    <Button
+        android:id="@+id/btnQuit"
+        android:layout_below="@+id/btnSignUpMMenu"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Quit"
+        />
+
+</RelativeLayout>

@@ -1,0 +1,48 @@
+package inf8405.tp2.letsmeet;
+
+import android.util.Log;
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+
+/**
+ * Created by youssef on 01/03/2016.
+ */
+public final class DBConnexion {
+
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
+
+    public static String getRequest(String url) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        Log.d("response to get",response.toString());
+        String temp=response.body().string();
+        Log.d("body",temp);
+        return temp;
+    }
+
+    public static String postRequest(String url, String json) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        Log.d("response to post",response.toString());
+        String temp=response.body().string();
+        Log.d("body",temp);
+        return temp;
+    }
+}

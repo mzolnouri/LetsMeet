@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#faa">
+
+    <ImageView
+        android:id="@+id/imgVwProfileImgSU"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="10dp"
+        android:background="#0a5"
+        android:src="@drawable/ic_photos"
+        />
+    <Button
+        android:id="@+id/btnSetImgSU"
+        android:layout_toRightOf="@+id/imgVwProfileImgSU"
+        android:layout_alignBottom="@id/imgVwProfileImgSU"
+        android:layout_width="138dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="setProfileImage"
+        android:text="Set your photo"
+        />
+
+    <EditText
+        android:id="@+id/edtTxtUserNameSU"
+        android:layout_below="@+id/imgVwProfileImgSU"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Pick a username"
+        />
+    <EditText
+        android:id="@+id/edtTxtEmailSU"
+        android:layout_below="@+id/edtTxtUserNameSU"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Your email address"
+        android:inputType="textEmailAddress"
+        />
+    <EditText
+        android:id="@+id/edtTxtPasswordSU"
+        android:layout_below="@+id/edtTxtEmailSU"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Create a password"
+        android:inputType="textLongMessage"
+        />
+    <EditText
+        android:id="@+id/edtTxtConfirmPasswordSU"
+        android:layout_below="@+id/edtTxtPasswordSU"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Confirm password"
+        android:inputType="textLongMessage"
+        />
+    <Button
+        android:id="@+id/btnCreateAccountSU"
+        android:layout_below="@+id/edtTxtConfirmPasswordSU"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="goToLevels"
+        android:text="Create your account"
+        />
+    <Button
+        android:id="@+id/btnBackToMainMenuSU"
+        android:layout_below="@+id/btnCreateAccountSU"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:onClick="goToLevels"
+        android:text="Back to main menu"
+        />
+
+</RelativeLayout>
