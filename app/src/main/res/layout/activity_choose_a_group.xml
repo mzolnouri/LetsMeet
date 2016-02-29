@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#ff7">
+
+    <RadioGroup
+        android:id="@+id/rdGrp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp">
+
+        <RadioButton
+            android:id="@+id/rdBtnG1"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="true"
+            android:text="Group 1"
+            />
+        <RadioButton
+            android:id="@+id/rdBtnG2"
+            android:layout_below="@+id/rdBtnG1"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="true"
+            android:text="Group 2"
+            />
+        <RadioButton
+            android:id="@+id/rdBtnG3"
+            android:layout_below="@+id/rdBtnG2"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="true"
+            android:text="Group 3"
+            />
+        <RadioButton
+            android:id="@+id/rdBtnG4"
+            android:layout_below="@+id/rdBtnG3"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_centerHorizontal="true"
+            android:text="Group 4"
+            />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnMeetings"
+        android:layout_below="@+id/rdGrp"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:onClick="goToLevels"
+        android:text="Meetings"
+        />
+    <Button
+        android:id="@+id/btnListUsers"
+        android:layout_below="@+id/rdGrp"
+        android:layout_toRightOf="@+id/btnMeetings"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="goToLevels"
+        android:text="User list"
+        />
+</RelativeLayout>

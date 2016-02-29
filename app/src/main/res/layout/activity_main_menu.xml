@@ -11,7 +11,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:text="Welcome to Letsmeet application"
+        android:text="Welcome to Let's Meet application"
         android:gravity="center"
         android:textSize="20dp"
         android:textColor="#0b1"
@@ -34,8 +34,6 @@
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:hint="User name"
-        android:inputType="textMultiLine"
-        android:lines="5"
         />
     <EditText
         android:id="@+id/edtTxtPassword"
@@ -44,8 +42,7 @@
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:hint="Password"
-        android:inputType="textMultiLine"
-        android:lines="5"
+        android:inputType="textPassword"
         />
     <Button
         android:id="@+id/btnSignIn"
