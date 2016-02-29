@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtVwWelcomeMsg"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="Welcome to Letsmeet application"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textColor="#0b1"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/txtVwSignInToAccountMsg"
+        android:layout_below="@+id/txtVwWelcomeMsg"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="Sign in to your account"
+        android:gravity="center"
+        />
+    <EditText
+        android:id="@+id/edtTxtUserName"
+        android:layout_below="@+id/txtVwSignInToAccountMsg"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:hint="User name"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        />
+    <EditText
+        android:id="@+id/edtTxtPassword"
+        android:layout_below="@+id/edtTxtUserName"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Password"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        />
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/edtTxtPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="goToLevels"
+        android:text="Sign In"
+        android:enabled="true"
+        tools:ignore="UnknownId" />
+    <TextView
+        android:id="@+id/txtVwEmptySpace"
+        android:layout_below="@+id/btnSignIn"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:gravity="center"
+        />
+    <TextView
+        android:id="@+id/txtVwSingUpMsg"
+        android:layout_below="@+id/txtVwEmptySpace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="New to Letsmeet?"
+        android:gravity="center"
+        />
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_below="@+id/txtVwSingUpMsg"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="goToLevels"
+        android:text="Sign up for a new account"
+        />
+
+</RelativeLayout>
