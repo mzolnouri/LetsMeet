@@ -51,7 +51,7 @@
         android:layout_below="@id/edtTxtPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:onClick="goToLevels"
+        android:onClick="ChooseGroup"
         android:text="Sign In"
         android:enabled="true"
         tools:ignore="UnknownId" />
@@ -59,7 +59,7 @@
         android:id="@+id/txtVwEmptySpace"
         android:layout_below="@+id/btnSignIn"
         android:layout_width="fill_parent"
-        android:layout_height="20dp"
+        android:layout_height="5dp"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:text=""
@@ -70,7 +70,7 @@
         android:layout_below="@+id/txtVwEmptySpace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:text="New to Letsmeet?"
         android:gravity="center"
@@ -81,9 +81,18 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:onClick="goToLevels"
+        android:layout_marginTop="10dp"
+        android:onClick="SignUp"
         android:text="Sign up for a new account"
+        />
+    <Button
+        android:id="@+id/btnQuit"
+        android:layout_below="@+id/btnSignUp"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Quit"
         />
 
 </RelativeLayout>
