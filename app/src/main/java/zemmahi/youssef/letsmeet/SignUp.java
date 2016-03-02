@@ -23,7 +23,7 @@ public class SignUp extends AppCompatActivity {
         btnCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ChooseGroup.class);
+                Intent intent = new Intent(getApplicationContext(), UserList.class);
                 startActivity(intent);
 
             }

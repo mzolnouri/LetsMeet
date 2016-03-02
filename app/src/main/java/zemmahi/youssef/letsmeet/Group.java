@@ -3,17 +3,17 @@ package zemmahi.youssef.letsmeet;
 /**
  * Created by youssef on 24/02/2016.
  */
-public class Groupe {
+public class Group {
     private Integer id_=0;
     private String name_=null;
 
-    public Groupe()
+    public Group()
     {
         name_="sans";
     }
 
 
-    public Groupe(String nom)
+    public Group(String nom)
     {
         name_=nom;
         id_= nom.hashCode();

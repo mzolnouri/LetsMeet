@@ -18,6 +18,10 @@ public class Position {
     private Adresse adresse_;
     private Date date_;
 
+    /* Constructor */
+    public Position(){}
+
+    /* Constructor by parameters */
     public Position(int id,double lng, double lat)
     {
         id_=id;
