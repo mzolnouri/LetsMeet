@@ -61,6 +61,9 @@
         <activity
             android:name=".UserList"
             android:label="@string/title_activity_user_liste"></activity>
+        <activity
+            android:name=".FindLocation"
+            android:label="@string/title_activity_find_location"></activity>
     </application>
 
 </manifest>

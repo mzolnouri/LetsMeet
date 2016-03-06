@@ -27,8 +27,8 @@
         android:text="Sign in to your account"
         android:gravity="center"
         />
-    <EditText
-        android:id="@+id/edtTxtUserName"
+    <AutoCompleteTextView
+        android:id="@+id/mACTxtVwUserNameMMenu"
         android:layout_below="@+id/txtVwSignInToAccountMsg"
         android:layout_width="300dp"
         android:layout_height="60dp"
@@ -36,8 +36,8 @@
         android:hint="User name"
         />
     <EditText
-        android:id="@+id/edtTxtPassword"
-        android:layout_below="@+id/edtTxtUserName"
+        android:id="@+id/edtTxtPasswordMMenu"
+        android:layout_below="@+id/mACTxtVwUserNameMMenu"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
@@ -45,10 +45,10 @@
         android:inputType="textPassword"
         />
     <Button
-        android:id="@+id/btnSignIn"
+        android:id="@+id/btnSignInMMenu"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@id/edtTxtPassword"
+        android:layout_below="@id/edtTxtPasswordMMenu"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:onClick="ChooseGroup"
@@ -56,8 +56,8 @@
         android:enabled="true"
         tools:ignore="UnknownId" />
     <TextView
-        android:id="@+id/txtVwEmptySpace"
-        android:layout_below="@+id/btnSignIn"
+        android:id="@+id/txtVwEmptySpaceMMenu"
+        android:layout_below="@+id/btnSignInMMenu"
         android:layout_width="fill_parent"
         android:layout_height="5dp"
         android:layout_marginTop="20dp"
@@ -66,8 +66,8 @@
         android:gravity="center"
         />
     <TextView
-        android:id="@+id/txtVwSingUpMsg"
-        android:layout_below="@+id/txtVwEmptySpace"
+        android:id="@+id/txtVwSingUpMsgMMenu"
+        android:layout_below="@+id/txtVwEmptySpaceMMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -76,8 +76,8 @@
         android:gravity="center"
         />
     <Button
-        android:id="@+id/btnSignUp"
-        android:layout_below="@+id/txtVwSingUpMsg"
+        android:id="@+id/btnSignUpMMenu"
+        android:layout_below="@+id/txtVwSingUpMsgMMenu"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
@@ -87,7 +87,7 @@
         />
     <Button
         android:id="@+id/btnQuit"
-        android:layout_below="@+id/btnSignUp"
+        android:layout_below="@+id/btnSignUpMMenu"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
