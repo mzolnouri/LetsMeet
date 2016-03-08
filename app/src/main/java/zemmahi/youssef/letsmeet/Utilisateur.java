@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 /**
  * Created by youssef on 24/02/2016.
  */
-public class User {
+public class Utilisateur {
     private String fName;
     private Integer id_=0;
     private String courriel_=null;
@@ -16,7 +16,7 @@ public class User {
     Boolean fCheckedBox = false;
 
 
-    public User()
+    public Utilisateur()
    {
        for (int i=0;i<3;i++)
        {
@@ -24,7 +24,7 @@ public class User {
        }
    }
 
-    public User(String name, int id, String courriel, boolean isPlanner)
+    public Utilisateur(String name, int id, String courriel, boolean isPlanner)
     {
         fName = name;
         id_=id;

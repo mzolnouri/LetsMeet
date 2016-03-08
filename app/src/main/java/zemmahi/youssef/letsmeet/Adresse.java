@@ -14,12 +14,12 @@ public class Adresse {
 
     public Adresse (Integer streetNum, String streetName, String city, String province, String country, String postalCode )
     {
-          streetNumber_=streetNum;
-          streetName_=streetName;
-          city_=city;
-          province_=province;
-          country_=country;
-          postalCode_=postalCode;
+        streetNumber_=streetNum;
+        streetName_=streetName;
+        city_=city;
+        province_=province;
+        country_=country;
+        postalCode_=postalCode;
     }
 
     public Integer getStreetNumber() {

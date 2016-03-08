@@ -38,8 +38,8 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
     private LocationRequest fLocationRequest;
     public static final String TAG = UserList.class.getSimpleName();
     private GoogleMap fMap;
-    ArrayList<User> fUsers;
-    List<User> fUsersTemp;
+    ArrayList<Utilisateur> fUtilisateurs;
+    List<Utilisateur> fUsersTemp;
     /* Contact fList */
     ListView fListView;
     /* Cursor to load contacts list */
@@ -77,49 +77,49 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
         Position user4Position = new Position();
         Position user5Position = new Position();
         Position user6Position = new Position();
-        User user1 = new User("Mahdi Zolnouri", 11, "mahdi@polymtl.ca", false);
+        Utilisateur utilisateur1 = new Utilisateur("Mahdi Zolnouri", 11, "mahdi@polymtl.ca", false);
         user1Position.setLatitude(61);
         user1Position.setLongitude(120);
-        user1.setPosition(user1Position);
-        User user2 = new User("Najib Arbaoui", 22, "najib@polymtl.ca", false);
+        utilisateur1.setPosition(user1Position);
+        Utilisateur utilisateur2 = new Utilisateur("Najib Arbaoui", 22, "najib@polymtl.ca", false);
         user2Position.setLatitude(-31);
         user2Position.setLongitude(31);
-        user2.setPosition(user2Position);
-        User user3 = new User("Youssef Zemmahi", 33, "youssef@polymtl.ca", false);
+        utilisateur2.setPosition(user2Position);
+        Utilisateur utilisateur3 = new Utilisateur("Youssef Zemmahi", 33, "youssef@polymtl.ca", false);
         user3Position.setLatitude(41);
         user3Position.setLongitude(41);
-        user3.setPosition(user3Position);
-        User user4 = new User("Samuel Gagnon", 11, "samuel@polymtl.ca", false);
+        utilisateur3.setPosition(user3Position);
+        Utilisateur utilisateur4 = new Utilisateur("Samuel Gagnon", 11, "samuel@polymtl.ca", false);
         user4Position.setLatitude(-41);
         user4Position.setLongitude(41);
-        user4.setPosition(user4Position);
-        User user5 = new User("Julien Daoust", 22, "julien@polymtl.ca", false);
+        utilisateur4.setPosition(user4Position);
+        Utilisateur utilisateur5 = new Utilisateur("Julien Daoust", 22, "julien@polymtl.ca", false);
         user5Position.setLatitude(51);
         user5Position.setLongitude(51);
-        user5.setPosition(user5Position);
-        User user6 = new User("Wassim Nasrallah", 33, "wassim@polymtl.ca", false);
+        utilisateur5.setPosition(user5Position);
+        Utilisateur utilisateur6 = new Utilisateur("Wassim Nasrallah", 33, "wassim@polymtl.ca", false);
         user6Position.setLatitude(61);
         user6Position.setLongitude(61);
-        user6.setPosition(user6Position);
-        fUsers = new ArrayList<User>();
-        fUsers.add(user1);
-        fUsers.add(user2);
-        fUsers.add(user3);
-        fUsers.add(user4);
-        fUsers.add(user5);
-        fUsers.add(user6);
+        utilisateur6.setPosition(user6Position);
+        fUtilisateurs = new ArrayList<Utilisateur>();
+        fUtilisateurs.add(utilisateur1);
+        fUtilisateurs.add(utilisateur2);
+        fUtilisateurs.add(utilisateur3);
+        fUtilisateurs.add(utilisateur4);
+        fUtilisateurs.add(utilisateur5);
+        fUtilisateurs.add(utilisateur6);
 
 
         fResolver = this.getContentResolver();
         fListView = (ListView) findViewById(R.id.lstVwcontacts_list);
 
-        if (fUsers != null) {
-            Log.e("count", "" + fUsers.size());
-            if (fUsers.size() == 0) {
+        if (fUtilisateurs != null) {
+            Log.e("count", "" + fUtilisateurs.size());
+            if (fUtilisateurs.size() == 0) {
                 Toast.makeText(UserList.this, "No contacts in your contact list.", Toast.LENGTH_LONG).show();
             }
 
-            fUserAdapter = new UserAdapter(fUsers, UserList.this);
+            fUserAdapter = new UserAdapter(fUtilisateurs, UserList.this);
             fListView.setAdapter(fUserAdapter);
 
             // Select item on listclick
@@ -129,12 +129,12 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
 
                     Log.e("search", "here---------------- listener");
 
-                    User userData = fUsers.get(i);
-                    Toast.makeText(UserList.this, "You've selected: " + userData.getName(), Toast.LENGTH_LONG).show();
-                    double currentLatitude = userData.getPosition().getLatitude();
-                    double currentLongitude = userData.getPosition().getLongitude();
+                    Utilisateur utilisateurData = fUtilisateurs.get(i);
+                    Toast.makeText(UserList.this, "You've selected: " + utilisateurData.getName(), Toast.LENGTH_LONG).show();
+                    double currentLatitude = utilisateurData.getPosition().getLatitude();
+                    double currentLongitude = utilisateurData.getPosition().getLongitude();
                     LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-                    MarkerOptions options = new MarkerOptions().position(latLng).title("Location of " + userData.getName());
+                    MarkerOptions options = new MarkerOptions().position(latLng).title("Location of " + utilisateurData.getName());
                     fMap.clear();
                     fMap.addMarker(options);
                     fMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));

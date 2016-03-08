@@ -339,15 +339,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Hashmap for ListView
         ProgressDialog pDialog;
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // Showing progress dialog
-            pDialog = new ProgressDialog(MainActivity.this);
-            pDialog.setMessage("Connect to database for checking the password ...");
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            // Showing progress dialog
+//            pDialog = new ProgressDialog(MainActivity.this);
+//            pDialog.setMessage("Connect to database for checking the password ...");
+//            pDialog.setCancelable(false);
+//            pDialog.show();
+//        }
 
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -388,7 +388,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 fUsernameRep = row.getString("email");   /******* change email with TAG_USERNAME after *********************************************************************/
                 String idRep = row.getString(TAG_ID);
 //                Toast.makeText(getApplicationContext(),
-//                        "User recived : " + fEmailRep + "Password recived : " + fPasswordRep,
+//                        "Utilisateur recived : " + fEmailRep + "Password recived : " + fPasswordRep,
 //                        Toast.LENGTH_LONG).show();
                 if(fPasswordRep.matches(fPassword))
                 {

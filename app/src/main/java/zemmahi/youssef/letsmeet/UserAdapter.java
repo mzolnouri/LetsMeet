@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -24,16 +22,16 @@ import java.util.Locale;
  * Created by mahdi on 16-03-01.
  */
 public class UserAdapter extends BaseAdapter {
-    public List<User> fData;
-    private ArrayList<User> fArrayList;
+    public List<Utilisateur> fData;
+    private ArrayList<Utilisateur> fArrayList;
     Context fC;
     ViewHolder fV;
     RoundImage fRoundImage;
 
-    public UserAdapter(List<User> users, Context context) {
-        fData = users;
+    public UserAdapter(List<Utilisateur> utilisateurs, Context context) {
+        fData = utilisateurs;
         fC = context;
-        this.fArrayList = new ArrayList<User>();
+        this.fArrayList = new ArrayList<Utilisateur>();
         this.fArrayList.addAll(fData);
     }
     @Override
@@ -69,7 +67,7 @@ public class UserAdapter extends BaseAdapter {
         fV.email = (TextView) view.findViewById(R.id.txtVwContactEmail);
         fV.imageView = (ImageView) view.findViewById(R.id.imgVwContactPic);
 
-        final User data = (User) fData.get(position);
+        final Utilisateur data = (Utilisateur) fData.get(position);
         fV.title.setText(data.getName());
         fV.check.setChecked(data.getCheckedBox());
         fV.email.setText(data.getCourriel());
@@ -117,7 +115,7 @@ public class UserAdapter extends BaseAdapter {
         if (charText.length() == 0) {
             fData.addAll(fArrayList);
         } else {
-            for (User wp : fArrayList) {
+            for (Utilisateur wp : fArrayList) {
                 if (wp.getName().toLowerCase(Locale.getDefault())
                         .contains(charText)) {
                     fData.add(wp);
