@@ -30,14 +30,11 @@ public class MainActivity extends AppCompatActivity {
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
     private Button mBtnSignIn = null;
     private Button mBtnSignUP = null;
     private Button mBtnQuit = null;
 
     /* Declare the fiels */
-    private JSONObject obj;
     private String fEmail, fPassword;
     private boolean mPassChecked = false;
     private boolean mEmailChecked = false;
@@ -56,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 /* Checking password with database */
                 mEmailView = (EditText) findViewById(R.id.edtTxtEmailMMenu);
-                //populateAutoComplete();
                 mPasswordView = (EditText) findViewById(R.id.edtTxtPasswordMMenu);
                 // Reset errors.
                 mEmailView.setError(null);
@@ -66,32 +62,21 @@ public class MainActivity extends AppCompatActivity {
                 fEmail = mEmailView.getText().toString();
                 fPassword = mPasswordView.getText().toString();
 
-                boolean cancel = false;
                 View focusView = null;
 
                 // Check for a valid password, if the user entered one.
                 if (!TextUtils.isEmpty(fPassword) && !isPasswordValid(fPassword)) {
                     mPasswordView.setError(getString(R.string.error_invalid_password));
                     focusView = mPasswordView;
-                    cancel = true;
                 }
 
                 // Check for a valid email address.
                 if (TextUtils.isEmpty(fEmail)) {
                     mEmailView.setError(getString(R.string.error_field_required));
                     focusView = mEmailView;
-                    cancel = true;
                 } else if (!isEmailValid(fEmail)) {
                     mEmailView.setError(getString(R.string.error_invalid_email));
                     focusView = mEmailView;
-                    cancel = true;
-                }
-                // Creating service handler class instance
-                obj = new JSONObject();
-                try {
-                    obj.put("email", fEmail);
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
                 // Calling async task to get json
                 try {
@@ -109,18 +94,21 @@ public class MainActivity extends AppCompatActivity {
                     Intent i = new Intent(getBaseContext(), ChooseGroup.class);
                     startActivity(i);
                     finish();
-                }
-                if(mEmailChecked) {
+                }else if(!mEmailChecked) {
                     Toast.makeText(getApplicationContext(),
                             "Your username est incorrect! Create a new account. ",
                             Toast.LENGTH_LONG).show();
-                    //focusView.requestFocus();
+                    if(focusView == null)
+                        focusView = mEmailView;
+                    focusView.requestFocus();
 
                 }else{
                     Toast.makeText(getApplicationContext(),
                             "Password is incorrect :(",
                             Toast.LENGTH_LONG).show();
-
+                    if(focusView == null)
+                        focusView = mPasswordView;
+                    focusView.requestFocus();
                 }
             }
         });
@@ -168,8 +156,10 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 if(response.contentEquals(Constants.WrongEmail))
                     mEmailChecked = false;
-                else if(response.contentEquals(Constants.WrongPassword))
+                else if(response.contentEquals(Constants.WrongPassword)) {
                     mPassChecked = false;
+                    mEmailChecked = true;
+                }
             }
             return null;
         }
