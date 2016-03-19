@@ -27,17 +27,17 @@
         android:text="Sign in to your account"
         android:gravity="center"
         />
-    <AutoCompleteTextView
-        android:id="@+id/mACTxtVwUserNameMMenu"
+    <EditText
+        android:id="@+id/edtTxtEmailMMenu"
         android:layout_below="@+id/txtVwSignInToAccountMsg"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
-        android:hint="User name"
+        android:hint="Email"
         />
     <EditText
         android:id="@+id/edtTxtPasswordMMenu"
-        android:layout_below="@+id/mACTxtVwUserNameMMenu"
+        android:layout_below="@+id/edtTxtEmailMMenu"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"

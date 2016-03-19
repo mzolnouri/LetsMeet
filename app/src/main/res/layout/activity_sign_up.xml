@@ -27,18 +27,9 @@
         android:onClick="setProfileImage"
         android:text="Set your photo"
         />
-
-    <EditText
-        android:id="@+id/edtTxtUserNameSU"
-        android:layout_below="@+id/imgVwProfileImgSU"
-        android:layout_width="300dp"
-        android:layout_height="45dp"
-        android:layout_centerHorizontal="true"
-        android:hint="Pick a username"
-        />
     <EditText
         android:id="@+id/edtTxtEmailSU"
-        android:layout_below="@+id/edtTxtUserNameSU"
+        android:layout_below="@+id/imgVwProfileImgSU"
         android:layout_width="300dp"
         android:layout_height="45dp"
         android:layout_centerHorizontal="true"

@@ -41,7 +41,7 @@ public class SignUp extends AppCompatActivity {
 
 
     // UI references.
-    private EditText mEdTxtUserName;
+
     private EditText mEdTxtEmail;
     private EditText mEdTxtPassword;
     private EditText mEdTxtComfirmPassword;
@@ -55,11 +55,11 @@ public class SignUp extends AppCompatActivity {
     // Declare the fields
     double fCurrentLatitude;
     double fCurrentLongitude;
-    private String fUserName, fEmail, fPassword, fConfirmPass;
+    private String fEmail, fPassword, fConfirmPass;
     private Bitmap fPhoto;
     private boolean fUserInsertSuccessful = false;
     private boolean fPassCaseEmpty = false, fEmailCaseEmpty = false, fEmailInvalide = false;
-    private boolean fConfirmPassCaseEmpty = false, fUserNameCaseEmpty = false, fPassNotConfirm = false, fPassInvalide = false;
+    private boolean fConfirmPassCaseEmpty = false, fPassNotConfirm = false, fPassInvalide = false;
 
 
     @Override
@@ -70,7 +70,7 @@ public class SignUp extends AppCompatActivity {
         btnCreateAccount = (Button) findViewById(R.id.btnCreateAccountSU);
         btnBackMainMenu = (Button) findViewById(R.id.btnBackToMainMenuSU);
         btnSetImage = (Button) findViewById(R.id.btnSetImgSU);
-        mEdTxtUserName = (EditText) findViewById(R.id.edtTxtUserNameSU);
+
         mEdTxtEmail = (EditText) findViewById(R.id.edtTxtEmailSU);
         mEdTxtPassword = (EditText) findViewById(R.id.edtTxtPasswordSU);
         mEdTxtComfirmPassword = (EditText) findViewById(R.id.edtTxtConfirmPasswordSU);
@@ -179,7 +179,6 @@ public class SignUp extends AppCompatActivity {
                 String picturePath = c.getString(columnIndex);
                 c.close();
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-                Log.w("path of image from gallery......******************.........", picturePath+"");
                 Bitmap bp = Bitmap.createScaledBitmap(thumbnail,64,64,false);
                 viewImage.setImageBitmap(bp);
             }
@@ -189,16 +188,15 @@ public class SignUp extends AppCompatActivity {
     private void attemptLogin() {
         View focusView = null;
         boolean cancel = false;
-        fEmailCaseEmpty = fPassCaseEmpty = fPassInvalide = fEmailInvalide = fConfirmPassCaseEmpty = fPassNotConfirm = fUserNameCaseEmpty = false;
+        fEmailCaseEmpty = fPassCaseEmpty = fPassInvalide = fEmailInvalide = fConfirmPassCaseEmpty = fPassNotConfirm;
 
         // Reset errors.
-        mEdTxtUserName.setError(null);
         mEdTxtEmail.setError(null);
         mEdTxtPassword.setError(null);
         mEdTxtComfirmPassword.setError(null);
 
         // Store values at the time of the login attempt.
-        fUserName = mEdTxtUserName.getText().toString();
+
         fEmail = mEdTxtEmail.getText().toString();
         fPassword = mEdTxtPassword.getText().toString();
         fConfirmPass = mEdTxtComfirmPassword.getText().toString();
@@ -245,15 +243,9 @@ public class SignUp extends AppCompatActivity {
             cancel = true;
             fEmailInvalide = true;
         }
-        // Check for a not null username.
-        if (TextUtils.isEmpty(fUserName)) {
-            mEdTxtUserName.setError(getString(R.string.error_field_required));
-            focusView = mEdTxtUserName;
-            cancel = true;
-            fUserNameCaseEmpty = true;
-        }
+
         if (!fPassCaseEmpty && !fPassInvalide && !fConfirmPassCaseEmpty && !fPassNotConfirm
-                && !fEmailCaseEmpty && !fEmailInvalide && !fUserNameCaseEmpty) {
+                && !fEmailCaseEmpty && !fEmailInvalide) {
             // Calling async task to get json
             try {
                 new ConnectionCode().execute().get();
@@ -308,7 +300,6 @@ public class SignUp extends AppCompatActivity {
 
             // Créer un nouveau utilisateur pour valider sign in
             Utilisateur utilisateur = new Utilisateur();
-            utilisateur.setName(fUserName);
             utilisateur.setCourriel(fEmail);
             utilisateur.setPassword(fPassword);
             utilisateur.setPhotoEnBitmap(fPhoto);
