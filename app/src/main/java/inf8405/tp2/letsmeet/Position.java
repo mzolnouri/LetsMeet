@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
+import java.util.UUID;
 
 /**
  * Created by youssef on 24/02/2016.
@@ -19,9 +20,11 @@ public class Position {
     private double radius_=0.0;
     private String adresse_=new String();
     private Date date_;
+    private UUID uidFormat_ = UUID.fromString("91c83b36-e25c-11e5-9730-9a79f06e9478");
 
     public Position()
     {
+        id_=uidFormat_.randomUUID().toString();
         date_= Calendar.getInstance().getTime();
     }
     public Position(double latitude, double longitude) {
@@ -32,7 +35,7 @@ public class Position {
 
     public Position(String id,double lng, double lat)
     {
-        id_=id;
+        id_=uidFormat_.randomUUID().toString();
         longitude_=lng;
         latitude_=lat;
         date_= Calendar.getInstance().getTime();

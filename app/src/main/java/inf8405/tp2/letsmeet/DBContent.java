@@ -399,7 +399,7 @@ public class DBContent {
         }
     }
     // recuperation de la liste des utilisateurs selon l'id du groupe
-    public  void GetUsersFromGroup(final String idGroupe)
+    public  Map<String,Utilisateur> GetUsersFromGroup(final String idGroupe)
     {
         // le clear au cas ou
         userMap_.clear();
@@ -407,7 +407,7 @@ public class DBContent {
             public void run() {
                 Log.d("Users test", "c mon test a moi");
                 try{
-                    userMap_ = Parseur.ParseToUsersMap(DBConnexion.getRequest(" http://najibarbaoui.com/najib/utilisateurbygroupe.php?id_groupe="
+                    userMap_ = Parseur.ParseToUsersMap(DBConnexion.getRequest("http://najibarbaoui.com/najib/utilisateurbygroupe.php?id_groupe="
                     + idGroupe));
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -420,6 +420,30 @@ public class DBContent {
         UsersThread.start();
         try {
             UsersThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return userMap_;
+    }
+    public void updateUserInformationInRemoteContent()
+    {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                   String temp = DBConnexion.postRequest("http://najibarbaoui.com/najib/update_utilisateur.php",Parseur.ParseUserToJsonFormat(userMap_.get(actualUserId_)));
+                    Log.d("okkkkkkaa",temp);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+        try {
+            thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
