@@ -77,77 +77,81 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onClick(View v) {
                 /* Checking password with database */
-                mACTxtVwUserName = (AutoCompleteTextView) findViewById(R.id.mACTxtVwUserNameMMenu);
-                //populateAutoComplete();
-                mPasswordView = (EditText) findViewById(R.id.edtTxtPasswordMMenu);
-                /* We retrieve the user data from database*/
-                if (mAuthTask != null) {
-                    return;
-                }
-                // Reset errors.
-                mACTxtVwUserName.setError(null);
-                mPasswordView.setError(null);
+//                mACTxtVwUserName = (AutoCompleteTextView) findViewById(R.id.mACTxtVwUserNameMMenu);
+//                //populateAutoComplete();
+//                mPasswordView = (EditText) findViewById(R.id.edtTxtPasswordMMenu);
+//                /* We retrieve the user data from database*/
+//                if (mAuthTask != null) {
+//                    return;
+//                }
+//                // Reset errors.
+//                mACTxtVwUserName.setError(null);
+//                mPasswordView.setError(null);
+//
+//                // Store values at the time of the login attempt.
+//                fUsername = mACTxtVwUserName.getText().toString();
+//                fPassword = mPasswordView.getText().toString();
+//
+//                boolean cancel = false;
+//                View focusView = null;
+//
+//                // Check for a valid password, if the user entered one.
+//                if (!TextUtils.isEmpty(fPassword) && !isPasswordValid(fPassword)) {
+//                    mPasswordView.setError(getString(R.string.error_invalid_password));
+//                    focusView = mPasswordView;
+//                    cancel = true;
+//                }
+//
+//                // Check for a valid email address.
+//                if (TextUtils.isEmpty(fUsername)) {
+//                    mACTxtVwUserName.setError(getString(R.string.error_field_required));
+//                    focusView = mACTxtVwUserName;
+//                    cancel = true;
+//                } else if (!isEmailValid(fUsername)) {
+//                    mACTxtVwUserName.setError(getString(R.string.error_invalid_email));
+//                    focusView = mACTxtVwUserName;
+//                    cancel = true;
+//                }
+//                // Creating service handler class instance
+//                obj = new JSONObject();
+//                try {
+//                    obj.put("email", fUsername);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                // Calling async task to get json
+//                try {
+//                    new ConnectionCode().execute().get();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                if(fPassCheckedSuccessful){
+//                    Toast.makeText(getApplicationContext(),
+//                            "Password is correct :)",
+//                            Toast.LENGTH_LONG).show();
+//                    Intent i = new Intent(getBaseContext(), ChooseGroup.class);
+//                    startActivity(i);
+//                    finish();
+//                }
+//                if(fUserCheckedSuccessful) {
+//                    Toast.makeText(getApplicationContext(),
+//                            "Your username est incorrect! Create a new account. ",
+//                            Toast.LENGTH_LONG).show();
+//                    //focusView.requestFocus();
+//
+//                }else{
+//                    Toast.makeText(getApplicationContext(),
+//                            "Password is incorrect :(",
+//                            Toast.LENGTH_LONG).show();
+//
+//                }
 
-                // Store values at the time of the login attempt.
-                fUsername = mACTxtVwUserName.getText().toString();
-                fPassword = mPasswordView.getText().toString();
-
-                boolean cancel = false;
-                View focusView = null;
-
-                // Check for a valid password, if the user entered one.
-                if (!TextUtils.isEmpty(fPassword) && !isPasswordValid(fPassword)) {
-                    mPasswordView.setError(getString(R.string.error_invalid_password));
-                    focusView = mPasswordView;
-                    cancel = true;
-                }
-
-                // Check for a valid email address.
-                if (TextUtils.isEmpty(fUsername)) {
-                    mACTxtVwUserName.setError(getString(R.string.error_field_required));
-                    focusView = mACTxtVwUserName;
-                    cancel = true;
-                } else if (!isEmailValid(fUsername)) {
-                    mACTxtVwUserName.setError(getString(R.string.error_invalid_email));
-                    focusView = mACTxtVwUserName;
-                    cancel = true;
-                }
-                // Creating service handler class instance
-                obj = new JSONObject();
-                try {
-                    obj.put("email", fUsername);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                // Calling async task to get json
-                try {
-                    new ConnectionCode().execute().get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-
-                if(fPassCheckedSuccessful){
-                    Toast.makeText(getApplicationContext(),
-                            "Password is correct :)",
-                            Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(getBaseContext(), ChooseGroup.class);
-                    startActivity(i);
-                    finish();
-                }
-                if(fUserCheckedSuccessful) {
-                    Toast.makeText(getApplicationContext(),
-                            "Your username est incorrect! Create a new account. ",
-                            Toast.LENGTH_LONG).show();
-                    //focusView.requestFocus();
-
-                }else{
-                    Toast.makeText(getApplicationContext(),
-                            "Password is incorrect :(",
-                            Toast.LENGTH_LONG).show();
-
-                }
+                DBContent dbContent = DBContent.getInstance();
+                String temp=dbContent.CreerNouvelUtilisateur("dadach","najib@yahoo.com","abjiNajib");
+                Log.d("helloooooo","temp");
             }
         });
         mBtnSignUP.setOnClickListener(new View.OnClickListener() {

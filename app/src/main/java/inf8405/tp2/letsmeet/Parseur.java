@@ -145,7 +145,7 @@ public final class Parseur {
     public static String ParseAuthentificationInfoToJsonFormat(String courriel, String password) throws JSONException {
         JSONObject json = new JSONObject();
 
-        json.put("username", courriel);
+        json.put("courriel", courriel);
         json.put("password", password);
 
         return  json.toString();
@@ -179,8 +179,8 @@ public final class Parseur {
         positionJson.put("position_time",user.getPosition().getDateString());
 
         // JSON FINAL
-        json.put("position",positionJson.toString());
-        json.put("utilisateur",userJson.toString());
+        json.put("position",positionJson);
+        json.put("utilisateur",userJson);
         return json.toString();
 
     }

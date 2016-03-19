@@ -136,7 +136,7 @@ public class DBContent {
                     Log.d("CreerNouvelUtilisateur", "cest mon test a moi");
                     // reponse true ou false du cote serveur
                     String reponsePost = DBConnexion.postRequest("http://najibarbaoui.com/najib/insert_utilisateur.php", Parseur.ParseUserToJsonFormat(NUtilisateur));
-                    if(reponsePost.contentEquals("0"))
+                    if(reponsePost.contentEquals("1"))
                     {
                         responseStr=Constants.UserAdded;
                         userMap_.put(NUtilisateur.getId(),NUtilisateur);
