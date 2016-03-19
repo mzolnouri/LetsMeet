@@ -125,13 +125,13 @@ public class DBContent {
 
     }
     // creation d'utilisateur gere , retourn si added ou pas
-    public String CreerNouvelUtilisateur(final String UserName, final String email, final String password)
+    public String CreerNouvelUtilisateur(final String email, final String password)
     {
         responseStr=Constants.UserNotAdded;
         Thread thread = new Thread(new Runnable() {
             public void run() {
                 // todo password enregistre localement est dangereux, voir solution alternative
-                Utilisateur NUtilisateur = new Utilisateur(UserName, email, password, actualGroupId_);
+                Utilisateur NUtilisateur = new Utilisateur(email, password, actualGroupId_);
                 try {
                     Log.d("CreerNouvelUtilisateur", "cest mon test a moi");
                     // reponse true ou false du cote serveur
@@ -267,7 +267,7 @@ public class DBContent {
 
                     try {
                         user[0] = Parseur.ParseJsonToUser(DBConnexion.getRequest("http://najibarbaoui.com/najib/utilisateur.php?id_utilisateur="
-                        + URLEncoder.encode(idUser,"UTF-8")));
+                        + idUser));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -294,7 +294,7 @@ public class DBContent {
             public void run() {
                 try {
                     String reponse = DBConnexion.getRequest("http://najibarbaoui.com/najib/groupebyidutilisateur.php?id_utilisateur="+
-                            URLEncoder.encode(userId,"UTF-8"));
+                            userId);
                     groupe[0] =Parseur.ParseJsonToGroup(reponse);
                 } catch (IOException e) {
                     e.printStackTrace();

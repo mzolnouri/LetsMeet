@@ -9,7 +9,6 @@ import java.util.UUID;
  */
 public class Utilisateur {
     private String id_= new String();
-    private String name_ = new String();
     private String courriel_=new String();
     private Bitmap photoEnBitMap_;// = Bitmap.createBitmap(" ");
     private boolean isPlanner_=false;
@@ -31,11 +30,10 @@ public class Utilisateur {
            userPreferences_[i]=null;
        }
    }
-    public Utilisateur(String username,String courriel, String password, String groupid)
+    public Utilisateur(String courriel, String password, String groupid)
     {
         id_=uidFormat_.randomUUID().toString();
         positionId_=uidFormat_.randomUUID().toString();
-        name_=username;
         courriel_=courriel;
         password_=password;
         groupeId_=groupid;
@@ -47,7 +45,6 @@ public class Utilisateur {
     public Utilisateur(String id, String name, String courriel, boolean isPlanner)
     {
         positionId_=uidFormat_.randomUUID().toString();
-        name_ = name;
         id_=id;
         courriel_=courriel;
         isPlanner_=isPlanner;
@@ -55,12 +52,6 @@ public class Utilisateur {
         {
             userPreferences_[i]=null;
         }
-    }
-    public void setName(String name){
-        this.name_ = name;
-    }
-    public String getName() {
-        return name_;
     }
     public Bitmap getPhotoEnBitmap(){
         return photoEnBitMap_;
