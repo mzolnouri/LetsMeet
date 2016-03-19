@@ -188,7 +188,7 @@ public class SignUp extends AppCompatActivity {
     private void attemptLogin() {
         View focusView = null;
         boolean cancel = false;
-        fEmailCaseEmpty = fPassCaseEmpty = fPassInvalide = fEmailInvalide = fConfirmPassCaseEmpty = fPassNotConfirm;
+        fEmailCaseEmpty = fPassCaseEmpty = fPassInvalide = fEmailInvalide = fConfirmPassCaseEmpty = fPassNotConfirm = fUserInsertSuccessful = false;
 
         // Reset errors.
         mEdTxtEmail.setError(null);
@@ -299,16 +299,15 @@ public class SignUp extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
 
             // Créer un nouveau utilisateur pour valider sign in
-            Utilisateur utilisateur = new Utilisateur();
-            utilisateur.setCourriel(fEmail);
-            utilisateur.setPassword(fPassword);
-            utilisateur.setPhotoEnBitmap(fPhoto);
 
-            /* Ici on enregistre l'utilisateur et on vérifie si l'opération est réussie */
-            fUserInsertSuccessful = utilisateur.InscrireNouveauUtilisateur();
-            /* Hardcoder !*/
-            fUserInsertSuccessful = true;
+            String response = ""; //= DBContent.getInstance().CreerNouvelUtilisateur(fEmail,fPassword);
+            /* Ici on vérifie la validité de la création de nouvel utilisateur */
+            if(response.contentEquals(Constants.UserAdded)){
+                fUserInsertSuccessful = true;
+            }
+
             return null;
+
         }
     }
 
