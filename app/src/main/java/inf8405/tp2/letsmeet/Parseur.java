@@ -192,7 +192,7 @@ public final class Parseur {
         json.put("longitude",pos.getLongitude());
         json.put("position_time",pos.getDateString());
 
-        jsonPos.put("position",json.toString());
+        jsonPos.put("position",json);
 
         return jsonPos.toString();
     }
@@ -209,7 +209,7 @@ public final class Parseur {
         {
             JSONObject json = parsePreferenceToJsonObject (user.getUserPreferences()[i]);
             json.put("idutilisateur",user.getId());
-            jArray.put(json.toString());
+            jArray.put(json);
         }
 
         return jArray.toString();
@@ -229,7 +229,7 @@ public final class Parseur {
                 json.put("priorite","2");
                 break;
             case Constants.lowPriority:
-                json.put("priorite","2");
+                json.put("priorite","3");
         }
         return json;
     }

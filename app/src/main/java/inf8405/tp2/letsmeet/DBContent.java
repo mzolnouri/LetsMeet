@@ -16,6 +16,8 @@ import java.util.Map;
 
 import javax.xml.transform.sax.TemplatesHandler;
 
+import okhttp3.internal.Util;
+
 /**
  * Created by youssef on 05/03/2016.
  */
@@ -226,16 +228,16 @@ public class DBContent {
     }
 
     // recuperation de tous les utilisateurs
-    public  void getAllUsers()
+    public  Map<String,Utilisateur> getAllUsers()
     {
         // le clear au cas ou la map contient deja klke chose
-        userMap_.clear();
+        final List<Map<String,Utilisateur>> maps = new ArrayList<Map<String,Utilisateur>>();
         Thread UsersThread = new Thread(new Runnable() {
             public void run() {
                 Log.d("Users test", "c mon test a moi");
                 try{
                     // TODO set the right url
-                    userMap_ = Parseur.ParseToUsersMap(DBConnexion.getRequest("http://najibarbaoui.com/najib/utilisateurs.php"));
+                    maps.add(Parseur.ParseToUsersMap(DBConnexion.getRequest("http://najibarbaoui.com/najib/utilisateurs.php"))) ;
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
@@ -249,6 +251,7 @@ public class DBContent {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return maps.get(0);
     }
 
     // recuperation d'un utilisateur selon son id
@@ -311,7 +314,7 @@ public class DBContent {
         }
         return groupe[0];
     }
-    public  void getAllGroupsInformations()
+    public  Map<String, Groupe> getAllGroupsInformations()
     {
        // au cas ou
         groupsMap_.clear();
@@ -336,6 +339,7 @@ public class DBContent {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return groupsMap_;
     }
     // ajouter nouveau groupe
     public String AddNewGroupToRemoteContent(String nom)
@@ -348,7 +352,7 @@ public class DBContent {
                 try {
                     String reponse = DBConnexion.postRequest("http://najibarbaoui.com/najib/insert_groupe.php",
                             Parseur.ParseGroupToJsonFormat(group));
-                    if(reponse.contentEquals("0"))
+                    if(reponse.contentEquals("1"))
                     {
                         responseStr=Constants.GroupAdded;
                         actualGroupId_=group.getId();
@@ -404,7 +408,7 @@ public class DBContent {
                 Log.d("Users test", "c mon test a moi");
                 try{
                     userMap_ = Parseur.ParseToUsersMap(DBConnexion.getRequest(" http://najibarbaoui.com/najib/utilisateurbygroupe.php?id_groupe="
-                    + URLEncoder.encode(idGroupe,"UTF-8")));
+                    + idGroupe));
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {

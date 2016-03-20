@@ -142,7 +142,7 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
                     LatLng latLng = new LatLng(currentLatitude, currentLongitude);
                     MarkerOptions options = new MarkerOptions().position(latLng).title("Location of " + utilisateurData.getCourriel());
                     fMap.clear();
-                    fMap.addMarker(options);
+                   // fMap.addMarker(options);
                     fMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                 }
             });
