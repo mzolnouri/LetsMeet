@@ -270,11 +270,15 @@ public class SignUp extends AppCompatActivity {
             if (cancel) {
                 // There was an error; don't attempt login and focus the first
                 // form field with an error.
+                if(focusView == null)
+                    focusView = mEdTxtEmail;
                 focusView.requestFocus();
             } else if (!fUserInsertSuccessful) {
                 Toast.makeText(getApplicationContext(),
                         "Registration failed! try again, please!",
                         Toast.LENGTH_LONG).show();
+                if(focusView == null)
+                    focusView = mEdTxtEmail;
                 focusView.requestFocus();
             }
         }
@@ -300,10 +304,11 @@ public class SignUp extends AppCompatActivity {
 
             // Créer un nouveau utilisateur pour valider sign in
 
-            String response = ""; //= DBContent.getInstance().CreerNouvelUtilisateur(fEmail,fPassword);
+            String response = DBContent.getInstance().CreerNouvelUtilisateur(fEmail,fPassword);
             /* Ici on vérifie la validité de la création de nouvel utilisateur */
             if(response.contentEquals(Constants.UserAdded)){
                 fUserInsertSuccessful = true;
+                DBContent.getInstance().getActualUser().setPosition(new Position(fCurrentLatitude, fCurrentLongitude));
             }
 
             return null;

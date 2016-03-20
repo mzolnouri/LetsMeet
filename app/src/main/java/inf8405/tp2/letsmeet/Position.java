@@ -24,6 +24,12 @@ public class Position {
     {
         date_= Calendar.getInstance().getTime();
     }
+    public Position(double latitude, double longitude) {
+        longitude_=longitude;
+        latitude_=latitude;
+        date_= Calendar.getInstance().getTime();
+    }
+
     public Position(String id,double lng, double lat)
     {
         id_=id;

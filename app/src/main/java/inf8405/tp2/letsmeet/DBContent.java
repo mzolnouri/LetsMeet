@@ -26,7 +26,7 @@ public class DBContent {
     private Map<String,Preference> preferencesMap_ = new HashMap<String,Preference>();
     private Map<String,Groupe> groupsMap_ = new HashMap<String,Groupe>();
     private Map<String,Position> positionsMap_ = new HashMap<String,Position>();
-    private String actualGroupId_= new String();
+    private String actualGroupId_= new String("0633a385-4b36-4135-9987-f48b02891d82");
     private String actualUserId_=new String();
     // seul attribut commun permettant de verifier la reponse a la requette http a l'interieur d'un thread
     private boolean flagForResponses = false;

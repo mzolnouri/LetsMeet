@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
     /* Declare the fiels */
     private String fEmail, fPassword;
-    private boolean mPassChecked = false;
-    private boolean mEmailChecked = false;
-
+//    private boolean mPassChecked = false;
+//    private boolean mEmailChecked = false;
+    private int mEmailPassChecked = 0; // 0: aucun n'est correct ou seulement pass est incorrect; 1:email incorrect; 2: les 2 sont corrects
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,16 +87,16 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if(mPassChecked){
+                if(mEmailPassChecked == 2){
                     Toast.makeText(getApplicationContext(),
                             "Password is correct :)",
                             Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getBaseContext(), ChooseGroup.class);
                     startActivity(i);
                     finish();
-                }else if(!mEmailChecked) {
+                }else if(mEmailPassChecked == 1) {
                     Toast.makeText(getApplicationContext(),
-                            "Your username est incorrect! Create a new account. ",
+                            "Your email est incorrect! Create a new account. ",
                             Toast.LENGTH_LONG).show();
                     if(focusView == null)
                         focusView = mEmailView;
@@ -151,15 +151,12 @@ public class MainActivity extends AppCompatActivity {
             /* Ici on vérifie la validité des informations entrées */
             String response = DBContent.getInstance().authentification(fEmail,fPassword);
             if(response.contentEquals(Constants.AccessGranted)){
-                mEmailChecked = true;
-                mPassChecked = true;
+                mEmailPassChecked = 2;
             }else{
                 if(response.contentEquals(Constants.WrongEmail))
-                    mEmailChecked = false;
-                else if(response.contentEquals(Constants.WrongPassword)) {
-                    mPassChecked = false;
-                    mEmailChecked = true;
-                }
+                    mEmailPassChecked = 1;
+                else
+                    mEmailPassChecked = 0;
             }
             return null;
         }
