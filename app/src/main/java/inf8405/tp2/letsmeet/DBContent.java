@@ -71,19 +71,63 @@ public class DBContent {
     // cree une nouvelle rencontre dans le groupe actuel par l'utilisateur actuel avec les infos en paramettre
     public boolean creerRencontre(String lieu, String description, String date)
     {
-        return groupsMap_.get(actualGroupId_).setRencontre(new Rencontre(lieu,description,actualUserId_,actualGroupId_,date));
+        return groupsMap_.get(actualGroupId_).setRencontre(new Rencontre(description,actualUserId_,actualGroupId_,date));
     }
 
     // dans le cas ou il n'est pas creer il instancie un nouveau et offre la possibilite de le modifier
     // si deja creer peut etre recuperer pour modifier ses attrinuts et infos necessaires
-    public Rencontre recupererRencontre()
+    public Rencontre getActualGroupeRencontre()
     {
         if(groupsMap_.get(actualGroupId_).getRencontre()==null)
         {
-            groupsMap_.get(actualGroupId_).setRencontre(new Rencontre());
+            groupsMap_.get(actualGroupId_).setRencontre(getRencontreFromRemoteContent(actualGroupId_));
         }
         return groupsMap_.get(actualGroupId_).getRencontre();
     }
+
+    public Rencontre getRencontreFromRemoteContent(final String idDuGroupe)
+    {
+        final Rencontre[] rencontre = new Rencontre[1];
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    rencontre[0] =Parseur.ParseJsonToRencontre(DBConnexion.getRequest("http://najibarbaoui.com/najib/rencontrebygroupe.php?id_groupe="+idDuGroupe));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return rencontre[0];
+    }
+
+    public Rencontre getRencontreByGroupeId(String groupid)
+    {
+        if(groupsMap_.containsKey(groupid))
+        {
+            if(groupsMap_.get(groupid).getRencontre()==null)
+            {
+                groupsMap_.get(groupid).setRencontre(getRencontreFromRemoteContent(groupid));
+            }
+        }
+        else
+        {
+            return getRencontreFromRemoteContent(groupid);
+        }
+
+        return groupsMap_.get(groupid).getRencontre();
+    }
+
+
     // recupere l'utilisateur actuel
     public Utilisateur getActualUser()
     {

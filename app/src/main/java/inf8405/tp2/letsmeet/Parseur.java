@@ -132,9 +132,11 @@ public final class Parseur {
 
         Rencontre rencontre = new Rencontre();
         rencontre.setId(json.getString("idrencontre"));
-        rencontre.setLieu(json.getString("lieu"));
+        rencontre.setLieu1(json.getString("lieu1"));
+        rencontre.setLieu2(json.getString("lieu2"));
+        rencontre.setLieu3(json.getString("lieu3"));
         //todo
-        //rencontre.setDateStr(json.getString("jour"));
+        rencontre.setDateStr(json.getString("jour"));
         rencontre.setDescription(json.getString("description"));
         rencontre.setIdGroupe(json.getString("groupe_idgroupe"));
         rencontre.setIdPlanner(json.getString("idorganisateur"));

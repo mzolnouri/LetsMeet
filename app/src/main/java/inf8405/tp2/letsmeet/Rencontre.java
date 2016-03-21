@@ -11,10 +11,12 @@ import java.util.UUID;
  */
 public class Rencontre {
     private String id_=new String();
-    private String lieu_ = new String();
+    private String lieu1_ = new String();
+    private String lieu2_ = new String();
+    private String lieu3_ = new String();
     private Date date_;
     private String description_=new String();
-    private String idGroupe_=new String();
+    private String idGroupe_="0633a385-4b36-4135-9987-f48b02891d82";
     private String idPlanner_ = new String();
     private UUID uidFormat_ = UUID.fromString("91c83b36-e25c-11e5-9730-9a79f06e9478");
 
@@ -23,10 +25,9 @@ public class Rencontre {
         id_=uidFormat_.randomUUID().toString();
     }
 
-    public Rencontre(String lieu, String description, String idPlanner, String idGroupe, String date)
+    public Rencontre( String description, String idPlanner, String idGroupe, String date)
     {
         id_=uidFormat_.randomUUID().toString();
-        lieu_=lieu;
         description_=description;
         idPlanner_=idPlanner;
         idGroupe_=idGroupe;
@@ -44,14 +45,6 @@ public class Rencontre {
 
     public void setId(String id) {
         this.id_ = id;
-    }
-
-    public String getLieu() {
-        return lieu_;
-    }
-
-    public void setLieu(String lieu) {
-        this.lieu_ = lieu;
     }
 
     public Date getDate() {
@@ -98,5 +91,28 @@ public class Rencontre {
 
     public void setIdPlanner(String idPlanner) {
         this.idPlanner_ = idPlanner;
+    }
+    public String getLieu1() {
+        return lieu1_;
+    }
+
+    public void setLieu1(String lieu1) {
+        this.lieu1_ = lieu1;
+    }
+
+    public String getLieu2() {
+        return lieu2_;
+    }
+
+    public void setLieu2(String lieu2) {
+        this.lieu2_ = lieu2;
+    }
+
+    public String getLieu3() {
+        return lieu3_;
+    }
+
+    public void setLieu3(String lieu3) {
+        this.lieu3_ = lieu3;
     }
 }

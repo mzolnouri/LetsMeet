@@ -12,7 +12,7 @@ public class Groupe {
     private String name_=null;
     private Map<String,Utilisateur> usersMap_ = new HashMap<String,Utilisateur>();
     private UUID uidFormat_ = UUID.fromString("91c83b36-e25c-11e5-9730-9a79f06e9478");
-    private Rencontre rencontre_;
+    private Rencontre rencontre_=new Rencontre();
 
     public Groupe()
     {
