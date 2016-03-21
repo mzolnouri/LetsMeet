@@ -142,7 +142,7 @@ public class DBContent {
                     {
                         responseStr=Constants.UserAdded;
                         userMap_.put(NUtilisateur.getId(),NUtilisateur);
-                        actualGroupId_=NUtilisateur.getId();
+                        actualUserId_=NUtilisateur.getId();
                         actualGroupId_=NUtilisateur.getGroupeId();
                     }
                 } catch (JSONException e) {
