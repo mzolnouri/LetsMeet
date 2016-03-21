@@ -29,13 +29,12 @@
         />
     <EditText
         android:id="@+id/edtTxtAncienPasswordEP"
-
         android:layout_below="@+id/btnUpdateImgEP"
         android:layout_width="300dp"
         android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:hint="Enter your last password"
-        android:inputType="textLongMessage"
+        android:inputType="textPassword"
         />
     <EditText
         android:id="@+id/edtTxtNewPasswordEP"
@@ -44,7 +43,7 @@
         android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:hint="Create a new password"
-        android:inputType="textLongMessage"
+        android:inputType="textPassword"
         />
     <EditText
         android:id="@+id/edtTxtConfirmNewPasswordEP"
@@ -53,7 +52,7 @@
         android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:hint="Confirm new password"
-        android:inputType="textLongMessage"
+        android:inputType="textPassword"
         />
     <Button
         android:id="@+id/btnUpdateProfileEP"

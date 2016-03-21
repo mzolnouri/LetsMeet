@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mBtnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /* Checking password with database */
+
                 mEmailView = (EditText) findViewById(R.id.edtTxtEmailMMenu);
                 mPasswordView = (EditText) findViewById(R.id.edtTxtPasswordMMenu);
                 // Reset errors.

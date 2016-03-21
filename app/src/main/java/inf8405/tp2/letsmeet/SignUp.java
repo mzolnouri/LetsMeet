@@ -1,7 +1,6 @@
 package inf8405.tp2.letsmeet;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,23 +14,17 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -49,7 +42,7 @@ public class SignUp extends AppCompatActivity {
     private Button btnBackMainMenu = null;
     private Button btnSetImage = null;
     private ImageView viewImage = null;
-    private Bitmap bp = null;
+    private Bitmap mImage = null;
 
 
     // Declare the fields
@@ -96,11 +89,11 @@ public class SignUp extends AppCompatActivity {
             }
         });
         if (savedInstanceState != null) {
-            bp = savedInstanceState.getParcelable("bitmap");
+            mImage = savedInstanceState.getParcelable("bitmap");
         }
 
-        if (bp != null) {
-            viewImage.setImageBitmap(bp);
+        if (mImage != null) {
+            viewImage.setImageBitmap(mImage);
         }
         btnBackMainMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +108,7 @@ public class SignUp extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("bitmap", bp);
+        outState.putParcelable("bitmap", mImage);
     }
     private void selectImage() {
         final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
@@ -150,9 +143,9 @@ public class SignUp extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-                bp = Bitmap.createScaledBitmap(thumbnail,64,64,false);
+                mImage = Bitmap.createScaledBitmap(thumbnail,64,64,false);
                 Log.w("Image alpha: ", viewImage.getImageAlpha() + "");
-                viewImage.setImageBitmap(bp);
+                viewImage.setImageBitmap(mImage);
                 Log.w("Image alpha: ", viewImage.getImageAlpha()   +"");
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
@@ -179,8 +172,8 @@ public class SignUp extends AppCompatActivity {
                 String picturePath = c.getString(columnIndex);
                 c.close();
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-                Bitmap bp = Bitmap.createScaledBitmap(thumbnail,64,64,false);
-                viewImage.setImageBitmap(bp);
+                mImage = Bitmap.createScaledBitmap(thumbnail,64,64,false);
+                viewImage.setImageBitmap(mImage);
             }
         }
     }
@@ -303,8 +296,14 @@ public class SignUp extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
 
             // Créer un nouveau utilisateur pour valider sign in
+            Utilisateur newUser = new Utilisateur();
+            newUser.setCourriel(fEmail);
+            newUser.setPassword(fPassword);
+            newUser.setPosition(new Position(fCurrentLatitude, fCurrentLongitude));
+            if(mImage!=null)
+                newUser.setPhotoEnBitmap(mImage);
 
-            String response = DBContent.getInstance().CreerNouvelUtilisateur(fEmail,fPassword);
+            String response = DBContent.getInstance().CreerNouvelUtilisateur(newUser);
             /* Ici on vérifie la validité de la création de nouvel utilisateur */
             if(response.contentEquals(Constants.UserAdded)){
                 fUserInsertSuccessful = true;

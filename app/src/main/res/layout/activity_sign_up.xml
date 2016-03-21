@@ -43,7 +43,7 @@
         android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:hint="Create a password"
-        android:inputType="textLongMessage"
+        android:inputType="textPassword"
         />
     <EditText
         android:id="@+id/edtTxtConfirmPasswordSU"
@@ -52,7 +52,7 @@
         android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:hint="Confirm password"
-        android:inputType="textLongMessage"
+        android:inputType="textPassword"
         />
     <Button
         android:id="@+id/btnCreateAccountSU"
