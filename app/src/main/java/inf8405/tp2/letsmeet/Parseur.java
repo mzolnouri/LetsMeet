@@ -135,7 +135,6 @@ public final class Parseur {
         rencontre.setLieu1(json.getString("lieu1"));
         rencontre.setLieu2(json.getString("lieu2"));
         rencontre.setLieu3(json.getString("lieu3"));
-        //todo
         rencontre.setDateStr(json.getString("jour"));
         rencontre.setDescription(json.getString("description"));
         rencontre.setIdGroupe(json.getString("groupe_idgroupe"));
@@ -209,7 +208,7 @@ public final class Parseur {
 
         for (int i=0;i<3;i++)
         {
-            JSONObject json = parsePreferenceToJsonObject (user.getUserPreferences()[i]);
+            JSONObject json = ParsePreferenceToJsonObject (user.getUserPreferences()[i]);
             json.put("idutilisateur",user.getId());
             jArray.put(json);
         }
@@ -217,7 +216,7 @@ public final class Parseur {
         return jArray.toString();
     }
 
-    private static JSONObject parsePreferenceToJsonObject (Preference preference) throws JSONException {
+    private static JSONObject ParsePreferenceToJsonObject (Preference preference) throws JSONException {
         JSONObject json=new JSONObject();
         json.put("idpreferences",preference.getId());
         json.put("endroit",preference.getAdresse());

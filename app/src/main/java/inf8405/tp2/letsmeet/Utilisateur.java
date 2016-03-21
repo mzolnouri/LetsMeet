@@ -1,7 +1,10 @@
 package inf8405.tp2.letsmeet;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 
+import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 /**
@@ -58,6 +61,10 @@ public class Utilisateur {
     }
     public void setPhotoEnBitmap(Bitmap photo){
         this.photoEnBitMap_ = photo;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        photoEn64_= Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
     public Boolean getCheckedBox() {
         return checkedBox_;
@@ -144,6 +151,8 @@ public class Utilisateur {
     }
 
     public void setPhotoEn64(String photoEn64) {
+        byte[] decodedString = Base64.decode(photoEn64, Base64.DEFAULT);
+        photoEnBitMap_ = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         this.photoEn64_ = photoEn64;
     }
 

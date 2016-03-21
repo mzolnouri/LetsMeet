@@ -171,13 +171,12 @@ public class DBContent {
 
     }
     // creation d'utilisateur gere , retourn si added ou pas
-    public String CreerNouvelUtilisateur(final String email, final String password)
+    public String CreerNouvelUtilisateur(final Utilisateur NUtilisateur )
     {
         responseStr=Constants.UserNotAdded;
         Thread thread = new Thread(new Runnable() {
             public void run() {
                 // todo password enregistre localement est dangereux, voir solution alternative
-                Utilisateur NUtilisateur = new Utilisateur(email, password, actualGroupId_);
                 try {
                     Log.d("CreerNouvelUtilisateur", "cest mon test a moi");
                     // reponse true ou false du cote serveur
