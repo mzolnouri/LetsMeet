@@ -122,7 +122,7 @@ public class UserAdapter extends BaseAdapter {
                 if (wp.getCourriel().toLowerCase(Locale.getDefault())
                         .contains(charText)) {
                     fData.add(wp);
-                }
+                }*/
             }
         }
         notifyDataSetChanged();

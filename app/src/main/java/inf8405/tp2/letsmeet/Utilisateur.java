@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -23,6 +24,7 @@ public class Utilisateur {
     private String groupeId_=new String();
     private String password_=new String();
     private UUID uidFormat_ = UUID.fromString("91c83b36-e25c-11e5-9730-9a79f06e9478");
+    private Calendrier calendrier_=new Calendrier();
 
     public Utilisateur()
    {
@@ -199,4 +201,20 @@ public class Utilisateur {
         return false;
     }
 
+    public Calendrier getCalendrier() {
+        return calendrier_;
+    }
+
+    public void setCalendrier(Calendrier calendrier) {
+        this.calendrier_ = calendrier;
+    }
+
+    public List<Activite> getListeActivite()
+    {
+        return calendrier_.getListDactivites();
+    }
+    public void ajouterActivite(Activite activite)
+    {
+        
+    }
 }
