@@ -37,11 +37,18 @@ public class DBContent {
     // instance du singleton
     private static DBContent instance_ = null;
 
+    /**
+     * Constructeur private
+     */
     private DBContent ()
     {
 
     }
 
+    /**
+     * Cette fonction permet de retourner l'instance du singleton
+     * @return
+     */
     public static DBContent getInstance()
     {
         if(instance_==null)
@@ -50,41 +57,81 @@ public class DBContent {
         }
         return instance_;
     }
+
+    /**
+     * Cette classe permet de detruire l'instance du singleton
+     */
     public static void destroyInstance()
     {
         instance_=null;
     }
 
-    public void addPreference(String priorite, String adresse)
+    /**
+     * Cette fonction permet d'ajouter une preference a l'utilisateur actuel
+     * @param priorite
+     * @param adresse
+     * @return boolean true si ajoute, false sinon
+     */
+
+    public boolean addPreference(String priorite, String adresse)
     {
+        if(!priorite.contentEquals(Constants.highPriority)&&!priorite.contentEquals(Constants.mediumPriority)&&!priorite.contentEquals(Constants.lowPriority) && !priorite.contentEquals(Constants.DefaultPriority))
+            return false;
         Preference preference = new Preference(adresse,priorite,actualUserId_);
         userMap_.get(actualUserId_).addPreferences(preference);
-
+        return true;
     }
 
-    // echanger les priorite de deux preferences
+    /**
+     * Fonction permettant dechanger deux preferences deja existantes
+     * @param x index du 1er element  ( commence par 0)
+     * @param y index du 2eme element
+     */
     public void switchUserPreferences(int x,int y)
     {
         userMap_.get(actualUserId_).switchPreferencesPriorities(x, y);
     }
 
-    // cree une nouvelle rencontre dans le groupe actuel par l'utilisateur actuel avec les infos en paramettre
+    /**
+     * Cette fonction permet d'attribuer un objet de type rencontre a l'utilisateur actuel
+     * @param lieu
+     * @param description
+     * @param date
+     * @return boolean si la rencontre a ete attribue a l'utilisateur actuel
+     */
     public boolean creerRencontre(String lieu, String description, String date)
     {
+        if (!groupsMap_.containsKey(actualGroupId_))
+            return false;
+
         return groupsMap_.get(actualGroupId_).setRencontre(new Rencontre(description, actualUserId_, actualGroupId_, date));
     }
 
-    // dans le cas ou il n'est pas creer il instancie un nouveau et offre la possibilite de le modifier
-    // si deja creer peut etre recuperer pour modifier ses attrinuts et infos necessaires
+    /**
+     * cette fonction permet de recuperer la recontre du groupe actuel, si la rencontre nest pas creer essaye de la recupere de la base de donnee
+     * @return objet de type rencontre ou null si aucune rencontre nest cree
+     */
     public Rencontre getActualGroupeRencontre()
     {
         if(groupsMap_.get(actualGroupId_).getRencontre()==null)
         {
-            groupsMap_.get(actualGroupId_).setRencontre(getRencontreFromRemoteContent(actualGroupId_));
+            Rencontre rencontre=getRencontreFromRemoteContent(actualGroupId_);
+            if(rencontre==null)
+            {
+                return null;
+            }
+            else {
+                groupsMap_.get(actualGroupId_).setRencontre(rencontre);
+            }
         }
         return groupsMap_.get(actualGroupId_).getRencontre();
     }
 
+    /**
+     * Cette fonction permet de recuperer les informations de la rencontre du groupe identifie par idDuGroupe
+     * @param idDuGroupe
+     * @return un objet de type rencontre sinon null ( en cas de probleme)
+     */
     public Rencontre getRencontreFromRemoteContent(final String idDuGroupe)
     {
         final Rencontre[] rencontre = new Rencontre[1];
@@ -95,8 +142,10 @@ public class DBContent {
                     rencontre[0] =Parseur.ParseJsonToRencontre(DBConnexion.getRequest("http://najibarbaoui.com/najib/rencontrebygroupe.php?id_groupe="+idDuGroupe));
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    rencontre[0]=null;
                 } catch (IOException e) {
                     e.printStackTrace();
+                    rencontre[0]=null;
                 }
             }
         });
@@ -114,6 +163,12 @@ public class DBContent {
 
 
     }
+
+    /**
+     * Cette fonction recupere la rencontre selon le groupeId si la rencontre nest pas en local il la recupere et la set au local
+     * @param groupid
+     * @return objet de type rencontre
+     */
     public Rencontre getRencontreByGroupeId(String groupid)
     {
         if(groupsMap_.containsKey(groupid))
@@ -132,18 +187,35 @@ public class DBContent {
     }
 
 
-    // recupere l'utilisateur actuel
+    /**
+     * Cette fonction permet de recuperer l'utilisateur actuel
+     * @return un objet de type utilisateur ou null si la map na pas ete instancie
+     */
     public Utilisateur getActualUser()
     {
-        return userMap_.get(actualUserId_);
-    }
-    // recupere le groupe actuel
-    public Groupe getActualGroup()
-    {
-        return groupsMap_.get(actualGroupId_);
+        if (userMap_.containsKey(actualUserId_))
+          return userMap_.get(actualUserId_);
+        else
+            return null;
     }
 
-    // creation d'utilisateur gere , retourn si added ou pas
+    /**
+     * cette fonction permet de recuperer le groupe actuel
+     * @return un objet de type Groupe ou null si la map n'a pas ete instancie
+     */
+    public Groupe getActualGroup()
+    {
+        if(groupsMap_.containsKey(actualGroupId_))
+        return groupsMap_.get(actualGroupId_);
+        else
+            return null;
+    }
+
+    /**
+     * Cette fonction permet d'ajouter un nouvel utilisateur a la base de donnee
+     * @param NUtilisateur
+     * @return retourne l'information si l'utilisateur est ajoute ou pas
+     */
     public String CreerNouvelUtilisateur(final Utilisateur NUtilisateur )
     {
         responseStr=Constants.UserNotAdded;
@@ -177,6 +249,12 @@ public class DBContent {
 
     }
 
+    /**
+     * Cette fonction permet l'authentification d'un utilisateur en utilisant son courriel et mot de passe
+     * @param courriel
+     * @param password
+     * @return si l'email est errone, le password est errone ou si l'acces est valide
+     */
     // authentification envoit une requette au serveur le serveur renvoit une reponse positive ou negative
     // si positive, renvoit les infos de l<utilisateur sinon renvoit quelle est le probleme
     public String authentification(final String courriel, final String password)
@@ -218,6 +296,10 @@ public class DBContent {
     }
 
     // fonction de mise a jour de la position de l'utilisateur actuel dans la BD
+
+    /**
+     * Cette fonction permet de mettre a jour la position de l'utilisateur actuel dans la base de donnee
+     */
     public void UpdateRemotePosition()
     {
         Thread thread = new Thread(new Runnable() {
@@ -243,7 +325,10 @@ public class DBContent {
         }
     }
 
-    // recuperation de tous les utilisateurs
+    /**
+     * cette fonction recupere la liste de tout les utilisateurs
+     * @return
+     */
     public  Map<String,Utilisateur> getAllUsers()
     {
         // le clear au cas ou la map contient deja klke chose
@@ -269,9 +354,15 @@ public class DBContent {
         return maps.get(0);
     }
 
-    // recuperation d'un utilisateur selon son id
+    /**
+     * Cette fonction recupere les informations d'un utilisateur selon son id
+     * @param idUser
+     * @return objet de type utilisateur
+     */
+
     public Utilisateur getUserById(final String idUser)
     {
+        // verification si l'utilisateur nest pas deja la
         if( userMap_.containsKey(idUser))
         {
             return userMap_.get(idUser);
@@ -303,7 +394,12 @@ public class DBContent {
         }
     }
 
-    // recuperation des informations d'un groupe a partir de l'id d'un utilisateur de ce groupe
+    /**
+     *  recuperation des informations d'un groupe a partir de l'id d'un utilisateur de ce groupe
+     * @param userId
+     * @return Objet de type groupe
+     */
+
     public Groupe getGroupdInformationFromUserId(final String userId)
     {
         final Groupe[] groupe = new Groupe[1];
@@ -329,6 +425,11 @@ public class DBContent {
         }
         return groupe[0];
     }
+
+    /**
+     * fonction qui permet de recuperer les informations de tout les groupes
+     * @return
+     */
     public  Map<String, Groupe> getAllGroupsInformations()
     {
        // au cas ou
@@ -337,7 +438,7 @@ public class DBContent {
             public void run() {
                 Log.d("Groups test", "c mon test a moi");
                 DBConnexion con=new DBConnexion();
-                try{
+                try {
                     groupsMap_ = Parseur.ParseToGroupeMap(con.getRequest("http://najibarbaoui.com/najib/groupe.php"));
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -355,7 +456,12 @@ public class DBContent {
         }
         return groupsMap_;
     }
-    // ajouter nouveau groupe
+
+    /**
+     *  cette fonction permet de creer un groupe dans la base de donnees, id est donnee dans le constructeur
+     * @param nom , nom donnee au groupe
+     * @return une constante indiquant si le groupe a ete ajoute ou pas
+     */
     public String AddNewGroupToRemoteContent(String nom)
     {
         responseStr=Constants.GroupNotAdded;
@@ -388,6 +494,11 @@ public class DBContent {
         }
         return responseStr;
     }
+
+    /**
+     * Ajout des preferences de l'utilisateur actuel
+     * @param user
+     */
     // ajout des preferences a la db
     public void addPreferencesToRemoteContent(final Utilisateur user)
     {
@@ -395,7 +506,11 @@ public class DBContent {
             @Override
             public void run() {
                 try {
-                    String preferencesStr = Parseur.ParsePreferencesToJsonFormat(user);
+                    if(!userMap_.containsKey(actualUserId_))
+                    {
+                        userMap_=getAllUsers();
+                    }
+                    String preferencesStr = Parseur.ParsePreferencesToJsonFormat(userMap_.get(actualUserId_));
                     DBConnexion.postRequest("http://najibarbaoui.com/najib/insert_preferences.php",preferencesStr);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -412,17 +527,23 @@ public class DBContent {
             e.printStackTrace();
         }
     }
-    // recuperation de la liste des utilisateurs selon l'id du groupe
+
+    /**
+     * cette fonction permet de recuperer les informations de tout les utilisateurs du groupe dont l'id est idGroupe
+     * @param idGroupe
+     * @return map contenant comme cle l id del'utilisateur et valeur l objet utilisateur
+     */
+    //
     public  Map<String,Utilisateur> GetUsersFromGroup(final String idGroupe)
     {
         // le clear au cas ou
-        userMap_.clear();
+        final List<Map<String,Utilisateur>> maps = new ArrayList<Map<String,Utilisateur>>();
         Thread UsersThread = new Thread(new Runnable() {
             public void run() {
                 Log.d("Users test", "c mon test a moi");
                 try{
-                    userMap_ = Parseur.ParseToUsersMap(DBConnexion.getRequest("http://najibarbaoui.com/najib/utilisateurbygroupe.php?id_groupe="
-                    + idGroupe));
+                    maps.add(Parseur.ParseToUsersMap(DBConnexion.getRequest("http://najibarbaoui.com/najib/utilisateurbygroupe.php?id_groupe="
+                            + idGroupe)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
@@ -437,8 +558,12 @@ public class DBContent {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return userMap_;
+        return maps.get(0);
     }
+
+    /**
+     * Cette fonction mmet a jour les informations de l'utilisateur actuel sur la base de donnees
+     */
     public void updateUserInformationInRemoteContent()
     {
         Thread thread = new Thread(new Runnable() {
@@ -462,6 +587,10 @@ public class DBContent {
             e.printStackTrace();
         }
     }
+
+    /**
+     * TODO
+     */
     public void mettreAjourPositionsMembresDuGroupe()
     {
         Thread thread = new Thread(new Runnable() {
@@ -503,6 +632,11 @@ public class DBContent {
         }
     }
 
+    /**
+     * Recuperation de la rencontre du groupe dont l id est celui dans l'argument
+     * @param idGroupe
+     * @return rencontre du groupe
+     */
     public Rencontre recupererLaRencontreGroupeBD(final String idGroupe)
     {
         final Rencontre[] rencontre = new Rencontre[1];
@@ -531,6 +665,9 @@ public class DBContent {
         return rencontre[0];
     }
 
+    /**
+     * TODO
+     */
     public void SynchronizeLocalPreferencesFromRemoteContent()
     {
         Thread PreferencesThread = new Thread(new Runnable() {
@@ -556,6 +693,11 @@ public class DBContent {
         }
     }
 
+    /**
+     * Fonction de recuperation de la position d'un utilisateur
+     * @param userid
+     * @return position de l'utilisateur associe au userid
+     */
     public  Position GetUserPosition(final String userid)
     {
         final Position[] position = new Position[1];
