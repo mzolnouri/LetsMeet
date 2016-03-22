@@ -86,6 +86,13 @@
         <activity
             android:name="inf8405.tp2.letsmeet.EditProfile"
             android:label="@string/title_activity_user_liste"></activity>
+        <activity
+            android:name="inf8405.tp2.letsmeet.CreerRencontre"
+            android:label="@string/title_activity_user_liste"></activity>
+        <activity
+            android:name="inf8405.tp2.letsmeet.InterfacePreferences"
+            android:label="@string/title_activity_interface_preferences"></activity>
+
     </application>
 
 </manifest>

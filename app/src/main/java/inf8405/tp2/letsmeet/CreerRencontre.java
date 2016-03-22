@@ -57,17 +57,17 @@ public class CreerRencontre extends AppCompatActivity {
         View focusView = null;
 
         // Check for a not null lieu text,
-        if (!TextUtils.isEmpty(mLieu1)) {
+        if (TextUtils.isEmpty(mLieu1)) {
             mEdtTxtLieu1.setError(getString(R.string.error_field_required));
             focusView = mEdtTxtLieu1;
             cancel = true;
         }
-        if (!TextUtils.isEmpty(mLieu2)) {
+        if (TextUtils.isEmpty(mLieu2)) {
             mEdtTxtLieu2.setError(getString(R.string.error_field_required));
             focusView = mEdtTxtLieu2;
             cancel = true;
         }
-        if (!TextUtils.isEmpty(mLieu3)) {
+        if (TextUtils.isEmpty(mLieu3)) {
             mEdtTxtLieu3.setError(getString(R.string.error_field_required));
             focusView = mEdtTxtLieu3;
             cancel = true;
@@ -80,6 +80,10 @@ public class CreerRencontre extends AppCompatActivity {
             startActivity(i);
             finish();
 
+        }else{
+            if(focusView == null)
+                focusView = mEdtTxtLieu1;
+            focusView.requestFocus();
         }
     }
 }

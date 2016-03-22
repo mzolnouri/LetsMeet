@@ -2,6 +2,12 @@
     <string name="app_name">Lets Meet</string>
     <string name="title_activity_choose_group">Choose Group</string>
     <string name="title_activity_sign_up">Sign up</string>
+    <string name="title_activity_user_liste">User list</string>
+    <string name="title_activity_interface_preferences">Préférences</string>
+    <string name="title_activity_creer_rencontre">Creer une rencontre</string>
+    <string name="title_activity_preferences">Sélectionner vos préférences</string>
+    <string name="title_activity_find_location">Find Location</string>
+    <string name="spinner_title">Préférences</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -30,8 +36,7 @@
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
-    <string name="title_activity_user_liste">User list</string>
-    <string name="title_activity_find_location">Find Location</string>
+
     <string name="google_app_id">191796413871</string>
 
 

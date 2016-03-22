@@ -70,51 +70,14 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         fGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
-        DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
-        for(Map.Entry<String, Utilisateur> entry : DBContent.getInstance().getUserMap().entrySet())
+
+        /* Get the map containing all users */
+        //DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
+        fUtilisateurs = new ArrayList<>();
+        for(Map.Entry<String, Utilisateur> entry : DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId()).entrySet())
         {
             fUtilisateurs.add(entry.getValue());
         }
-
-//        /* Here we manage the contact list *//*
-//        Position user1Position = new Position();
-//        Position user2Position = new Position();
-//        Position user3Position = new Position();
-//        Position user4Position = new Position();
-//        Position user5Position = new Position();
-//        Position user6Position = new Position();
-//        Utilisateur utilisateur1 = new Utilisateur("11", "Mahdi Zolnouri", "mahdi@polymtl.ca", false);
-//        user1Position.setLatitude(61);
-//        user1Position.setLongitude(120);
-//        utilisateur1.setPosition(user1Position);
-//        Utilisateur utilisateur2 = new Utilisateur("22", "Najib Arbaoui", "najib@polymtl.ca", false);
-//        user2Position.setLatitude(-31);
-//        user2Position.setLongitude(31);
-//        utilisateur2.setPosition(user2Position);
-//        Utilisateur utilisateur3 = new Utilisateur("33", "Youssef Zemmahi", "youssef@polymtl.ca", false);
-//        user3Position.setLatitude(41);
-//        user3Position.setLongitude(41);
-//        utilisateur3.setPosition(user3Position);
-//        Utilisateur utilisateur4 = new Utilisateur("11", "Samuel Gagnon", "samuel@polymtl.ca", false);
-//        user4Position.setLatitude(-41);
-//        user4Position.setLongitude(41);
-//        utilisateur4.setPosition(user4Position);
-//        Utilisateur utilisateur5 = new Utilisateur("22", "Julien Daoust", "julien@polymtl.ca", false);
-//        user5Position.setLatitude(51);
-//        user5Position.setLongitude(51);
-//        utilisateur5.setPosition(user5Position);
-//        Utilisateur utilisateur6 = new Utilisateur("33", "Wassim Nasrallah", "wassim@polymtl.ca", false);
-//        user6Position.setLatitude(61);
-//        user6Position.setLongitude(61);
-//        utilisateur6.setPosition(user6Position);
-//        fUtilisateurs = new ArrayList<Utilisateur>();
-//        fUtilisateurs.add(utilisateur1);
-//        fUtilisateurs.add(utilisateur2);
-//        fUtilisateurs.add(utilisateur3);
-//        fUtilisateurs.add(utilisateur4);
-//        fUtilisateurs.add(utilisateur5);
-//        fUtilisateurs.add(utilisateur6);*/
-
 
         fResolver = this.getContentResolver();
         fListView = (ListView) findViewById(R.id.lstVwcontacts_list);
@@ -142,8 +105,9 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
                     LatLng latLng = new LatLng(currentLatitude, currentLongitude);
                     MarkerOptions options = new MarkerOptions().position(latLng).title("Location of " + utilisateurData.getCourriel());
                     fMap.clear();
-                   // fMap.addMarker(options);
-                    fMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    fMap.addMarker(options);
+                    float zoomLevel = 16; //This goes up to 21
+                    fMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
                 }
             });
 

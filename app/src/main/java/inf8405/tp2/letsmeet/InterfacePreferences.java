@@ -1,5 +1,9 @@
 package inf8405.tp2.letsmeet;
 
+/**
+ * Created by mahdi on 16-03-22.
+ */
+
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.IntentSender;
@@ -12,8 +16,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SearchView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -31,32 +35,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class UserList extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class InterfacePreferences extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, AdapterView.OnItemSelectedListener {
 
     private GoogleApiClient fGoogleApiClient;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private LocationRequest fLocationRequest;
     public static final String TAG = UserList.class.getSimpleName();
     private GoogleMap fMap;
-    ArrayList<Utilisateur> fUtilisateurs;
-    List<Utilisateur> fUsersTemp;
-    /* Contact fList */
-    ListView fListView;
-    /* Cursor to load contacts list */
-    String fId, fEmail;
+    ArrayList<Preference> fPreferences;
 
     /* Pop up */
     ContentResolver fResolver;
-    SearchView fSearchView;
-    UserAdapter fUserAdapter;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_liste);
+        setContentView(R.layout.activity_preferences);
 
         // Create the LocationRequest object
         fLocationRequest = LocationRequest.create()
@@ -70,110 +65,69 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         fGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
-        DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
-        for(Map.Entry<String, Utilisateur> entry : DBContent.getInstance().getUserMap().entrySet())
-        {
-            fUtilisateurs.add(entry.getValue());
+
+        /* Get the map containing all users */
+        //DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
+        fPreferences = new ArrayList<>();
+        for (Map.Entry<String, Preference> entry : DBContent.getInstance().getPreferencesMap().entrySet()) {
+            fPreferences.add(entry.getValue());
         }
 
-//        /* Here we manage the contact list *//*
-//        Position user1Position = new Position();
-//        Position user2Position = new Position();
-//        Position user3Position = new Position();
-//        Position user4Position = new Position();
-//        Position user5Position = new Position();
-//        Position user6Position = new Position();
-//        Utilisateur utilisateur1 = new Utilisateur("11", "Mahdi Zolnouri", "mahdi@polymtl.ca", false);
-//        user1Position.setLatitude(61);
-//        user1Position.setLongitude(120);
-//        utilisateur1.setPosition(user1Position);
-//        Utilisateur utilisateur2 = new Utilisateur("22", "Najib Arbaoui", "najib@polymtl.ca", false);
-//        user2Position.setLatitude(-31);
-//        user2Position.setLongitude(31);
-//        utilisateur2.setPosition(user2Position);
-//        Utilisateur utilisateur3 = new Utilisateur("33", "Youssef Zemmahi", "youssef@polymtl.ca", false);
-//        user3Position.setLatitude(41);
-//        user3Position.setLongitude(41);
-//        utilisateur3.setPosition(user3Position);
-//        Utilisateur utilisateur4 = new Utilisateur("11", "Samuel Gagnon", "samuel@polymtl.ca", false);
-//        user4Position.setLatitude(-41);
-//        user4Position.setLongitude(41);
-//        utilisateur4.setPosition(user4Position);
-//        Utilisateur utilisateur5 = new Utilisateur("22", "Julien Daoust", "julien@polymtl.ca", false);
-//        user5Position.setLatitude(51);
-//        user5Position.setLongitude(51);
-//        utilisateur5.setPosition(user5Position);
-//        Utilisateur utilisateur6 = new Utilisateur("33", "Wassim Nasrallah", "wassim@polymtl.ca", false);
-//        user6Position.setLatitude(61);
-//        user6Position.setLongitude(61);
-//        utilisateur6.setPosition(user6Position);
-//        fUtilisateurs = new ArrayList<Utilisateur>();
-//        fUtilisateurs.add(utilisateur1);
-//        fUtilisateurs.add(utilisateur2);
-//        fUtilisateurs.add(utilisateur3);
-//        fUtilisateurs.add(utilisateur4);
-//        fUtilisateurs.add(utilisateur5);
-//        fUtilisateurs.add(utilisateur6);*/
+        /* Manage des snipers */
+        // Spinner element
+        Spinner spinner1 = (Spinner) findViewById(R.id.spinner1P);
+        Spinner spinner2 = (Spinner) findViewById(R.id.spinner2P);
+        Spinner spinner3 = (Spinner) findViewById(R.id.spinner3P);
+
+        // Spinner click listener
+        spinner1.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        spinner2.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        spinner3.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+
+        // Spinner Drop down elements of list 1
+        List<String> catPreferencesList1 = new ArrayList<String>();
+        catPreferencesList1.add("Automobile");
+        catPreferencesList1.add("Business Services");
+        catPreferencesList1.add("Computers");
+        // Spinner Drop down elements of list 2
+        List<String> catPreferencesList2 = new ArrayList<String>();
+        catPreferencesList2.add("Automobile");
+        catPreferencesList2.add("Business Services");
+        catPreferencesList2.add("Computers");
+        // Spinner Drop down elementsof list 3
+        List<String> catPreferencesList3 = new ArrayList<String>();
+        catPreferencesList3.add("Automobile");
+        catPreferencesList3.add("Business Services");
+        catPreferencesList3.add("Computers");
+
+
+        // Creating adapter for 3 spinners
+        ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, catPreferencesList1);
+        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, catPreferencesList2);
+        ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, catPreferencesList3);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner1.setAdapter(dataAdapter1);
+        spinner1.setAdapter(dataAdapter2);
+        spinner1.setAdapter(dataAdapter3);
 
 
         fResolver = this.getContentResolver();
-        fListView = (ListView) findViewById(R.id.lstVwcontacts_list);
 
-        if (fUtilisateurs != null) {
-            Log.e("count", "" + fUtilisateurs.size());
-            if (fUtilisateurs.size() == 0) {
-                Toast.makeText(UserList.this, "No contacts in your contact list.", Toast.LENGTH_LONG).show();
+        if (fPreferences != null) {
+            Log.e("count", "" + fPreferences.size());
+            if (fPreferences.size() == 0) {
+                Toast.makeText(InterfacePreferences.this, "No Preferences in your list.", Toast.LENGTH_LONG).show();
             }
-
-            fUserAdapter = new UserAdapter(fUtilisateurs, UserList.this);
-            fListView.setAdapter(fUserAdapter);
-
-            // Select item on listclick
-            fListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    Log.e("search", "here---------------- listener");
-
-                    Utilisateur utilisateurData = fUtilisateurs.get(i);
-<<<<<<< HEAD
-                    Toast.makeText(UserList.this, "You've selected: " + utilisateurData.getCourriel(), Toast.LENGTH_LONG).show();
-                    double currentLatitude = utilisateurData.getPosition().getLatitude();
-                    double currentLongitude = utilisateurData.getPosition().getLongitude();
-                    LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-                    MarkerOptions options = new MarkerOptions().position(latLng).title("Location of " + utilisateurData.getCourriel());
-=======
-                   // Toast.makeText(UserList.this, "You've selected: " + utilisateurData.getName(), Toast.LENGTH_LONG).show();
-                    double currentLatitude = utilisateurData.getPosition().getLatitude();
-                    double currentLongitude = utilisateurData.getPosition().getLongitude();
-                    LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-                   // MarkerOptions options = new MarkerOptions().position(latLng).title("Location of " + utilisateurData.getName());
->>>>>>> 9c0e7c6... getalluser , getUserById test/, getGroupdInformationFromUserId teste, AddNewGroupToRemoteContent teste
-                    fMap.clear();
-                   // fMap.addMarker(options);
-                    fMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                }
-            });
-
-            fListView.setFastScrollEnabled(true);
 
         } else {
             Log.e("Cursor close 1", "----------------");
         }
-        fSearchView = (SearchView) findViewById(R.id.srchViewSearchContacts);
-
-        fSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                fUserAdapter.filter((newText));
-                return false;
-            }
-        });
     }
 
     @Override
@@ -247,7 +201,8 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
         MarkerOptions options = new MarkerOptions().position(latLng).title("Actual location");
         fMap.addMarker(options);
-        fMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        float zoomLevel = 16; //This goes up to 21
+        fMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
     }
 
     @Override
@@ -287,5 +242,19 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
     @Override
     public void onProviderDisabled(String provider) {
 
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        // TODO Auto-generated method stub
     }
 }

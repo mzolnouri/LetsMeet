@@ -69,7 +69,10 @@ public class UserAdapter extends BaseAdapter {
 
         final Utilisateur data = (Utilisateur) fData.get(position);
         fV.title.setText(data.getCourriel());
-        fV.check.setChecked(data.getCheckedBox());
+        Boolean checkedBox = data.getCheckedBox();
+        if(checkedBox == null)
+            checkedBox = false;
+        fV.check.setChecked(checkedBox);
         fV.email.setText(data.getCourriel());
 
         // Set image if exists

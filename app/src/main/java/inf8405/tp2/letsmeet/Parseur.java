@@ -175,8 +175,8 @@ public final class Parseur {
 
         // creation de la partie position
         positionJson.put("idposition",user.getPositionId());
-        positionJson.put("latitude",user.getPosition().getLatitude());
-        positionJson.put("longitude",user.getPosition().getLongitude());
+        positionJson.put("latitude",String.valueOf(user.getPosition().getLatitude()));
+        positionJson.put("longitude",String.valueOf(user.getPosition().getLongitude()));
         positionJson.put("position_time",user.getPosition().getDateString());
 
         // JSON FINAL
