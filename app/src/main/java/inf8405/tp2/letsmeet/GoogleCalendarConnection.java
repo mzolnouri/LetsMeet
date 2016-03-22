@@ -292,7 +292,7 @@ public class GoogleCalendarConnection extends Activity {
                         String.format("%s (%s)", event.getSummary(), start));
             }
 
-            // envoie des activites au serveur, idUtilisateur doit instancie
+            // envoie des activites au serveur, idUtilisateur doit etre instancie
             DBContent.getInstance().UploadActivitiesToRemoteContent();
             return eventStrings;
         }
