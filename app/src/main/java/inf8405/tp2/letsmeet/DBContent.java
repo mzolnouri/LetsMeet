@@ -158,10 +158,54 @@ public class DBContent {
 
         return rencontre[0];
     }
-    public void AjouterActiviteUtilisateur()
+
+    /**
+     * Cette methode permet d'ajouter une activite au calendrier de lutilisateur Actuel
+     * @param description
+     * @param debut
+     * @param fin
+     */
+    public void AjouterActiviteUtilisateur(String description,String debut, String fin)
     {
+        if (userMap_.containsKey(actualUserId_))
+        {
+            userMap_.get(actualUserId_).ajouterActivite(new Activite(description,debut,fin));
+        }
+        else
+        {
+            Log.d("AjouterActiviteUser","actualUser vide");
+        }
+    }
 
+    /**
+     * envoit des activites de l'utilisateur principale a la base de donnee
+     */
+    public void UploadActivitiesToRemoteContent()
+    {
+        if(userMap_.containsKey(actualUserId_))
+        {
+            Log.d("UploadActivity","actualUser vide");
+            return;
+        }
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    DBConnexion.postRequest("http://najibarbaoui.com/najib/insert_calendrier.php",Parseur.ParseActivitiesToJsonFormat(userMap_.get(actualUserId_)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -570,8 +614,8 @@ public class DBContent {
             @Override
             public void run() {
                 try {
-                   String temp = DBConnexion.postRequest("http://najibarbaoui.com/najib/update_utilisateur.php",Parseur.ParseUserToJsonFormat(userMap_.get(actualUserId_)));
-                    Log.d("okkkkkkaa",temp);
+                   String temp = DBConnexion.postRequest("http://najibarbaoui.com/najib/update_utilisateur.php", Parseur.ParseUserToJsonFormat(userMap_.get(actualUserId_)));
+                    Log.d("okkkkkkaa", temp);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

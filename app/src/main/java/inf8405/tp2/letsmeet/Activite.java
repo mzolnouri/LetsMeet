@@ -20,6 +20,18 @@ public class Activite {
     {
         id_=uidFormat_.randomUUID().toString();
     }
+    public Activite(String description, String debut,String fin)
+    {
+        id_=uidFormat_.randomUUID().toString();
+        description_=description;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
+        try {
+            this.debut_=sdf.parse(debut);
+            this.fin_=sdf.parse(fin);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
     public String getId() {
         return id_;
     }
