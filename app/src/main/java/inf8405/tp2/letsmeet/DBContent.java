@@ -71,7 +71,7 @@ public class DBContent {
     // cree une nouvelle rencontre dans le groupe actuel par l'utilisateur actuel avec les infos en paramettre
     public boolean creerRencontre(String lieu, String description, String date)
     {
-        return groupsMap_.get(actualGroupId_).setRencontre(new Rencontre(description,actualUserId_,actualGroupId_,date));
+        return groupsMap_.get(actualGroupId_).setRencontre(new Rencontre(description, actualUserId_, actualGroupId_, date));
     }
 
     // dans le cas ou il n'est pas creer il instancie un nouveau et offre la possibilite de le modifier
@@ -142,38 +142,7 @@ public class DBContent {
     {
         return groupsMap_.get(actualGroupId_);
     }
-    // todo fonction a revoir si utile ou pas
-    private void InitialSyncOfElements()
-    {
-        for (Map.Entry<String, Preference> preference : preferencesMap_.entrySet())
-        {
-            if(userMap_.containsKey(preference.getValue().getUserId()))
-            {
-                userMap_.get(preference.getValue().getUserId()).addPreferences(preference.getValue());
-            }
-            else
-            {
-                Log.d("problem in initial sort","user not found");
-            }
-        }
 
-        for (Map.Entry<String, Utilisateur> user : userMap_.entrySet())
-        {
-            if(positionsMap_.containsKey(user.getValue().getPositionId()))
-            {
-                user.getValue().setPosition(positionsMap_.get(user.getValue().getPositionId()));
-            }
-            else
-            {
-                Log.d("problem in initial sort","Position not found in the map");
-            }
-            if(groupsMap_.containsKey(user.getValue().getGroupeId()))
-            {
-                groupsMap_.get(user.getValue().getGroupeId()).addUser(user.getValue());
-            }
-        }
-
-    }
     // creation d'utilisateur gere , retourn si added ou pas
     public String CreerNouvelUtilisateur(final Utilisateur NUtilisateur )
     {
@@ -283,7 +252,6 @@ public class DBContent {
             public void run() {
                 Log.d("Users test", "c mon test a moi");
                 try{
-                    // TODO set the right url
                     maps.add(Parseur.ParseToUsersMap(DBConnexion.getRequest("http://najibarbaoui.com/najib/utilisateurs.php"))) ;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -370,7 +338,6 @@ public class DBContent {
                 Log.d("Groups test", "c mon test a moi");
                 DBConnexion con=new DBConnexion();
                 try{
-                    // TODO set the right url
                     groupsMap_ = Parseur.ParseToGroupeMap(con.getRequest("http://najibarbaoui.com/najib/groupe.php"));
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -544,7 +511,7 @@ public class DBContent {
             public void run() {
                 try {
                     String reponse = DBConnexion.getRequest("http://najibarbaoui.com/najib/rencontrebygroupe.php?id_groupe="
-                    + URLEncoder.encode(idGroupe,"UTF-8"));
+                    + idGroupe);
                     rencontre[0] =Parseur.ParseJsonToRencontre(reponse);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -589,15 +556,24 @@ public class DBContent {
         }
     }
 
-    public  void GetUsersPositions(String IdGroupe)
+    public  Position GetUserPosition(final String userid)
     {
+        final Position[] position = new Position[1];
         Thread PositionsThread= new Thread(new Runnable() {
             public void run() {
                 Log.d("Positions test", "c mon test a moi");
-                DBConnexion con=new DBConnexion();
                 try{
+                    if (!userMap_.containsKey(userid))// 0661359033// 661903420
+                    {
+                       userMap_=getAllUsers();
+                    }
                     // TODO set the right url
-                    positionsMap_ = Parseur.ParseToPositionsMap(con.getRequest("http://najibarbaoui.com/najib"));
+                    position[0] = Parseur.ParseToPosition(DBConnexion.getRequest("http://najibarbaoui.com/najib/position.php?id_position=" +
+                            userMap_.get(userid).getPositionId()));
+                    if (userMap_.containsKey(userid))
+                    {
+                        userMap_.get(userid).setPosition(position[0]);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
@@ -612,7 +588,27 @@ public class DBContent {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        return position[0];
     }
+
+    void uploadActivitiesToRemoteContent()
+    {
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    DBConnexion.postRequest("http://najibarbaoui.com/najib/insert_calendrier.php", Parseur.ParseActivitiesToJsonFormat(userMap_.get(actualUserId_)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+
     public Map<String, Utilisateur> getUserMap() {
         return userMap_;
     }

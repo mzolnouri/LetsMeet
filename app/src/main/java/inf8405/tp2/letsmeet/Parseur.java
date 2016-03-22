@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,6 +41,19 @@ public final class Parseur {
         }
     return usersMap;
     }
+
+    public static Position ParseToPosition(String message) throws JSONException {
+        JSONArray json=new JSONArray(message);
+
+            Position position= new Position();
+            position.setId(json.getJSONObject(0).getString("idposition"));
+            position.setLatitude(json.getJSONObject(0).getDouble("latitude"));
+            position.setLongitude(json.getJSONObject(0).getDouble("longitude"));
+            position.setRadius(json.getJSONObject(0).getDouble("radius"));
+            position.setDate(json.getJSONObject(0).getString("position_time"));
+
+        return position;
+    }
     public static Map<String,Position> ParseToPositionsMap(String message) throws JSONException {
         JSONArray json=new JSONArray(message);
         Map<String,Position> positionsMap= new HashMap<String,Position>();
@@ -49,8 +63,7 @@ public final class Parseur {
             position.setId(json.getJSONObject(i).getString("idposition"));
             position.setLatitude(json.getJSONObject(i).getDouble("latitude"));
             position.setLongitude(json.getJSONObject(i).getDouble("longitude"));
-            // TODO
-            //position.setRadius(json.getJSONObject(i).getDouble("radius"));
+            position.setRadius(json.getJSONObject(i).getDouble("radius"));
             position.setDate(json.getJSONObject(i).getString("position_time"));
             positionsMap.put(position.getId(), position);
         }
@@ -233,5 +246,22 @@ public final class Parseur {
                 json.put("priorite","3");
         }
         return json;
+    }
+
+    public static String ParseActivitiesToJsonFormat(Utilisateur utilisateur) throws JSONException {
+        JSONArray jsonArray=new JSONArray();
+
+        List<Activite> list = utilisateur.getListeActivite();
+
+        for(int i=0;i<list.size();i++)
+        {
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("idcalendrier",list.get(i).getId());
+            jsonObject.put("heure_debut",list.get(i).getDebutStr());
+            jsonObject.put("heure_fin",list.get(i).getFinStr());
+            jsonObject.put("activite",list.get(i).getDescription());
+            jsonObject.put("idutilisateur",utilisateur.getId());
+        }
+        return jsonArray.toString();
     }
 }

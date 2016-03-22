@@ -163,6 +163,7 @@ public class Utilisateur {
     }
 
     public void setPositionId(String positionId) {
+        position_.setId(positionId);
         this.positionId_ = positionId;
     }
 
@@ -215,6 +216,6 @@ public class Utilisateur {
     }
     public void ajouterActivite(Activite activite)
     {
-        
+        calendrier_.getListDactivites().add(activite);
     }
 }
