@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        tools:context=".MainActivity">
+        <TextView
+            android:id="@+id/txtVwLieuMsgCR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dip"
+            android:layout_marginLeft="20dp"
+            android:text="Lieu de rencontre : "
+            />
+        <TextView
+            android:id="@+id/txtVwLieuCR"
+            android:layout_toRightOf="@+id/txtVwLieuMsgCR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dip"
+            android:layout_marginLeft="20dp"
+            android:text=" ... "
+            />
+        <TextView
+            android:id="@+id/txtVwDateRencontreMsgCR"
+            android:layout_below="@+id/txtVwLieuMsgCR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dip"
+            android:layout_marginLeft="20dp"
+            android:text="Date de rencontre : "
+            />
+        <TextView
+            android:id="@+id/txtVwDateRencontreCR"
+            android:layout_toRightOf="@+id/txtVwDateRencontreMsgCR"
+            android:layout_below="@+id/txtVwLieuCR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dip"
+            android:layout_marginLeft="20dp"
+            android:text=" ... "
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="2">
+
+        <FrameLayout
+            android:id="@+id/frmLyoutMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#5b74a8">
+
+            <TextView
+                android:id="@+id/txtVwTileToolBarMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Localize the user on Google Maps.."
+                android:textColor="#000"
+                android:textSize="16dp"></TextView>
+        </FrameLayout>
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:layout_below="@+id/frmLyoutMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            tools:context=".UserList"></fragment>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/map"
+            android:text="map "></TextView>
+
+    </RelativeLayout>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="4">
+        <Button
+            android:id="@+id/btnAnnulerP"
+            android:layout_toRightOf="@+id/btnSavePerferencesP"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:onClick="goToLevels"
+            android:text="Revenir au menu précédent"
+            />
+
+
+    </RelativeLayout>
+</LinearLayout>

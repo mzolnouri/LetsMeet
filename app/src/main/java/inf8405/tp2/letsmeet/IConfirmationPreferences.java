@@ -1,5 +1,10 @@
 package inf8405.tp2.letsmeet;
 
+
+/**
+ * Created by mahdi on 16-03-22.
+ */
+
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.IntentSender;
@@ -12,10 +17,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -27,36 +30,28 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-public class UserList extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class IConfirmationPreferences extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, AdapterView.OnItemSelectedListener {
 
     private GoogleApiClient fGoogleApiClient;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private LocationRequest fLocationRequest;
     public static final String TAG = UserList.class.getSimpleName();
     private GoogleMap fMap;
-    ArrayList<Utilisateur> fUtilisateurs;
-    List<Utilisateur> fUsersTemp;
-    /* Contact fList */
-    ListView fListView;
-    /* Cursor to load contacts list */
-    String fId, fEmail;
+    TextView lieuRencontreMsg = null;
+    TextView lieuRencontre = null;
+    TextView DateRencontreMsg = null;
+    TextView DateRencontre = null;
 
     /* Pop up */
     ContentResolver fResolver;
-    SearchView fSearchView;
-    UserAdapter fUserAdapter;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_liste);
+        setContentView(R.layout.activity_confirmation_rencontre);
+
 
         // Create the LocationRequest object
         fLocationRequest = LocationRequest.create()
@@ -71,65 +66,12 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
         mapFragment.getMapAsync(this);
         fGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
 
-        /* Get the map containing all users */
-        //DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
-        fUtilisateurs = new ArrayList<>();
-        for(Map.Entry<String, Utilisateur> entry : DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId()).entrySet())
-        {
-            fUtilisateurs.add(entry.getValue());
-        }
-
         fResolver = this.getContentResolver();
-        fListView = (ListView) findViewById(R.id.lstVwcontacts_list);
 
-        if (fUtilisateurs != null) {
-            Log.e("count", "" + fUtilisateurs.size());
-            if (fUtilisateurs.size() == 0) {
-                Toast.makeText(UserList.this, "No contacts in your contact list.", Toast.LENGTH_LONG).show();
-            }
-
-            fUserAdapter = new UserAdapter(fUtilisateurs, UserList.this);
-            fListView.setAdapter(fUserAdapter);
-
-            // Select item on listclick
-            fListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    Log.e("search", "here---------------- listener");
-
-                    Utilisateur utilisateurData = fUtilisateurs.get(i);
-                    Toast.makeText(UserList.this, "You've selected: " + utilisateurData.getCourriel(), Toast.LENGTH_LONG).show();
-                    double currentLatitude = utilisateurData.getPosition().getLatitude();
-                    double currentLongitude = utilisateurData.getPosition().getLongitude();
-                    LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-                    MarkerOptions options = new MarkerOptions().position(latLng).title("Location of " + utilisateurData.getCourriel());
-                    fMap.clear();
-                    fMap.addMarker(options);
-                    float zoomLevel = 16; //This goes up to 21
-                    fMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
-                }
-            });
-
-            fListView.setFastScrollEnabled(true);
-
-        } else {
-            Log.e("Cursor close 1", "----------------");
-        }
-        fSearchView = (SearchView) findViewById(R.id.srchViewSearchContacts);
-
-        fSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                fUserAdapter.filter((newText));
-                return false;
-            }
-        });
+//        lieuRencontreMsg = (EditText) findViewById(R.id.txtVwLieuMsgCR);
+//        lieuRencontre = (EditText) findViewById(R.id.txtVwLieuCR);
+//        DateRencontreMsg = (EditText) findViewById(R.id.txtVwDateRencontreMsgCR);
+//        DateRencontre = (EditText) findViewById(R.id.txtVwDateRencontreCR);
     }
 
     @Override
@@ -152,7 +94,6 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
     protected void onStop() {
         super.onStop();
     }
-
 
     /**
      * Manipulates the map once available.
@@ -203,7 +144,8 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
         MarkerOptions options = new MarkerOptions().position(latLng).title("Actual location");
         fMap.addMarker(options);
-        fMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        float zoomLevel = 16; //This goes up to 21
+        fMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
     }
 
     @Override
@@ -228,5 +170,19 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
     @Override
     public void onLocationChanged(Location location) {
         handleNewLocation(location);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        // TODO Auto-generated method stub
     }
 }

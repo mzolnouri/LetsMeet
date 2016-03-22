@@ -92,6 +92,9 @@
         <activity
             android:name="inf8405.tp2.letsmeet.InterfacePreferences"
             android:label="@string/title_activity_interface_preferences"></activity>
+        <activity
+            android:name="inf8405.tp2.letsmeet.IConfirmationPreferences"
+            android:label="@string/title_activity_interface_confirmation_rencontre"></activity>
 
     </application>
 

@@ -21,6 +21,7 @@ public class NavHomeFragment extends Fragment{
     private Button mBtnPreferences = null;
     private Button mBtnListeUtilisateurs = null;
     private Button mBtnCreerRencontre = null;
+    private Button mBtnConfirmationRencontre = null;
     Activity mActivity;
     int mButtonSelected;
     @Nullable
@@ -77,7 +78,20 @@ public class NavHomeFragment extends Fragment{
             }
         });
 
+        /* Manage the confirmation rencontre button */
+        mBtnConfirmationRencontre = (Button) homeView.findViewById(R.id.btnConfirmationRencontreCG);
+        mBtnConfirmationRencontre.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                confirmationRencontreButtonClicked(v);
+            }
+        });
         return homeView;
+    }
+
+    public void confirmationRencontreButtonClicked (View view) {
+        Intent i = new Intent(getActivity(), IConfirmationPreferences.class);
+        startActivity(i);
+
     }
 
     public void preferencesButtonClicked (View view) {

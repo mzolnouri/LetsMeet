@@ -8,7 +8,7 @@
     <RadioGroup
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rdGrpListChoixDeGroup"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:layout_width="fill_parent"
@@ -62,6 +62,15 @@
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:text="Creer une rencontre"
+        />
+    <Button
+        android:id="@+id/btnConfirmationRencontreCG"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btnCreateRencontreCG"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Voir rencontre confirmée"
         />
 
 </RelativeLayout>
