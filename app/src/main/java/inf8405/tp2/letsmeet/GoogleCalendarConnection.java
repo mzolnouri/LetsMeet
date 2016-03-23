@@ -278,17 +278,24 @@ public class GoogleCalendarConnection extends Activity {
 
             for (Event event : items) {
                 DateTime start = event.getStart().getDateTime();
+                DateTime end = event.getEnd().getDateTime();
                 if (start == null) {
                     // All-day events don't have start times, so just use
                     // the start date.
                     start = event.getStart().getDate();
                 }
+                String description = String.format("%s", event.getSummary());
+                String debut = String.format("%s", event.getStart().getDateTime());
+                String fin=String.format("%s", event.getEnd().getDateTime());
+                DBContent.getInstance().AjouterActiviteUtilisateur(description,debut,fin);
                 eventStrings.add(
                         String.format("%s (%s)", event.getSummary(), start));
             }
+
+            // envoie des activites au serveur, idUtilisateur doit etre instancie
+            DBContent.getInstance().UploadActivitiesToRemoteContent();
             return eventStrings;
         }
-
 
         @Override
         protected void onPreExecute() {
