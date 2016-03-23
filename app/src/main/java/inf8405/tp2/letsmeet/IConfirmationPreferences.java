@@ -7,10 +7,14 @@ package inf8405.tp2.letsmeet;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import com.google.android.gms.location.LocationListener;
+
+import android.os.BatteryManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -67,6 +71,8 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
         fGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
 
         fResolver = this.getContentResolver();
+        TextView niveauBattrie = (TextView)findViewById(R.id.txtNiveauBattery);
+        niveauBattrie.setText(String.valueOf(getBatteryLevel())+" %");
 
 //        lieuRencontreMsg = (EditText) findViewById(R.id.txtVwLieuMsgCR);
 //        lieuRencontre = (EditText) findViewById(R.id.txtVwLieuCR);
@@ -88,6 +94,19 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
             LocationServices.FusedLocationApi.removeLocationUpdates(fGoogleApiClient, (com.google.android.gms.location.LocationListener) this);
             fGoogleApiClient.disconnect();
         }
+    }
+// Method pour Calculer le niveau de batterie
+    public float getBatteryLevel() {
+        Intent batteryIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+
+        // Error checking that probably isn't needed but I added just in case.
+        if(level == -1 || scale == -1) {
+            return 50.0f;
+        }
+
+        return ((float)level / (float)scale) * 100.0f;
     }
 
     @Override

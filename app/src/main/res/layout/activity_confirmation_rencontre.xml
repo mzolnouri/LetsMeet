@@ -45,6 +45,25 @@
             android:layout_marginLeft="20dp"
             android:text=" ... "
             />
+        <TextView
+            android:id="@+id/txtBattery"
+            android:layout_below="@+id/txtVwDateRencontreCR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dip"
+            android:layout_marginLeft="20dp"
+            android:text="Niveau Battery: "
+            />
+        <TextView
+            android:id="@+id/txtNiveauBattery"
+            android:layout_toRightOf="@+id/txtBattery"
+            android:layout_below="@+id/txtVwDateRencontreMsgCR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dip"
+            android:layout_marginLeft="20dp"
+            android:text=""
+            />
 
     </RelativeLayout>
 
