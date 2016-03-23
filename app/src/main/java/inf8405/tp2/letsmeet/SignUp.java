@@ -297,6 +297,7 @@ public class SignUp extends AppCompatActivity {
 
             // Créer un nouveau utilisateur pour valider sign in
             Utilisateur newUser = new Utilisateur();
+            newUser.setGroupeId(DBContent.getInstance().getActualGroupId());
             newUser.setCourriel(fEmail);
             newUser.setPassword(fPassword);
             newUser.setPosition(new Position(fCurrentLatitude, fCurrentLongitude));

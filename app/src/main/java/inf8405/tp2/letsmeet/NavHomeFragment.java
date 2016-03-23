@@ -8,7 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -22,6 +27,7 @@ public class NavHomeFragment extends Fragment{
     private Button mBtnListeUtilisateurs = null;
     private Button mBtnCreerRencontre = null;
     private Button mBtnConfirmationRencontre = null;
+    private RadioButton radioButtonItem;
     Activity mActivity;
     int mButtonSelected;
     @Nullable
@@ -30,10 +36,18 @@ public class NavHomeFragment extends Fragment{
         mActivity = getActivity();
 
         homeView = inflater.inflate(R.layout.activity_nav_home, container, false);
+        Map<String, Groupe> nameMap=DBContent.getInstance().getAllGroupsInformations();
+        List<Groupe> listName= new ArrayList<Groupe>(nameMap.values());
 
        /* Manage radio group */
         mRadioGroup = (RadioGroup) homeView.findViewById(R.id.rdGrpListChoixDeGroup);
+        int itemId;
+        for(int i = 0; i < mRadioGroup.getChildCount(); i++){
+            itemId = mRadioGroup.getChildAt(i).getId();
+            radioButtonItem = (RadioButton) homeView.findViewById(itemId);
+            radioButtonItem.setText(listName.get(i).getGroupName());
 
+        }
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
