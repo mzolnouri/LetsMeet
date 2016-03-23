@@ -47,9 +47,9 @@ public final class Parseur {
 
             Position position= new Position();
             position.setId(json.getJSONObject(0).getString("idposition"));
-            position.setLatitude(json.getJSONObject(0).getDouble("latitude"));
-            position.setLongitude(json.getJSONObject(0).getDouble("longitude"));
-            position.setRadius(json.getJSONObject(0).getDouble("radius"));
+            position.setLatitude(Double.parseDouble(json.getJSONObject(0).getString("latitude")));
+            position.setLongitude(Double.parseDouble(json.getJSONObject(0).getString("longitude")));
+            position.setRadius(Double.parseDouble(json.getJSONObject(0).getString("radius")));
             position.setDate(json.getJSONObject(0).getString("position_time"));
 
         return position;
@@ -61,9 +61,9 @@ public final class Parseur {
         {
             Position position= new Position();
             position.setId(json.getJSONObject(i).getString("idposition"));
-            position.setLatitude(json.getJSONObject(i).getDouble("latitude"));
-            position.setLongitude(json.getJSONObject(i).getDouble("longitude"));
-            position.setRadius(json.getJSONObject(i).getDouble("radius"));
+            position.setLatitude(Double.parseDouble(json.getJSONObject(i).getString("latitude")));
+            position.setLongitude(Double.parseDouble(json.getJSONObject(i).getString("longitude")));
+            position.setRadius(Double.parseDouble(json.getJSONObject(i).getString("radius")));
             position.setDate(json.getJSONObject(i).getString("position_time"));
             positionsMap.put(position.getId(), position);
         }
@@ -212,6 +212,7 @@ public final class Parseur {
         positionJson.put("idposition",user.getPositionId());
         positionJson.put("latitude",String.valueOf(user.getPosition().getLatitude()));
         positionJson.put("longitude",String.valueOf(user.getPosition().getLongitude()));
+        positionJson.put("radius",String.valueOf(user.getPosition().getRadius()));
         positionJson.put("position_time",user.getPosition().getDateString());
 
         // JSON FINAL
@@ -224,8 +225,9 @@ public final class Parseur {
         JSONObject json = new JSONObject();
         JSONObject jsonPos = new JSONObject();
         json.put("idposition",pos.getId());
-        json.put("latitude",pos.getLatitude());
-        json.put("longitude",pos.getLongitude());
+        json.put("latitude",String.valueOf(pos.getLatitude()));
+        json.put("longitude",String.valueOf(pos.getLongitude()));
+        json.put("radius", String.valueOf(pos.getRadius()));
         json.put("position_time",pos.getDateString());
 
         jsonPos.put("position",json);
