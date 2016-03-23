@@ -20,6 +20,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_choose_group"
-        app:menu="@menu/activity_choose_group_drawer" />
+        app:menu="@menu/activity_choose_group_menu_navigation" />
 
 </android.support.v4.widget.DrawerLayout>

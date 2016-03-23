@@ -74,7 +74,8 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
         /* Get the map containing all users */
         //DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
         fUtilisateurs = new ArrayList<>();
-        for(Map.Entry<String, Utilisateur> entry : DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId()).entrySet())
+        Map<String, Utilisateur> myMap=DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
+        for(Map.Entry<String, Utilisateur> entry : myMap.entrySet())
         {
             fUtilisateurs.add(entry.getValue());
         }
@@ -204,7 +205,8 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
         MarkerOptions options = new MarkerOptions().position(latLng).title("Actual location");
         fMap.addMarker(options);
-        fMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        float zoomLevel = 16; //This goes up to 21
+        fMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
     }
 
     @Override
