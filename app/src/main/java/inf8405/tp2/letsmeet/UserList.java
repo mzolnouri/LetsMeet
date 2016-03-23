@@ -74,7 +74,7 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
         /* Get the map containing all users */
         //DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
         fUtilisateurs = new ArrayList<>();
-        Map<String, Utilisateur> myMap=DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
+        Map<String,Utilisateur> myMap=DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
         for(Map.Entry<String, Utilisateur> entry : myMap.entrySet())
         {
             fUtilisateurs.add(entry.getValue());
@@ -103,6 +103,7 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
                     Utilisateur utilisateurData = fUtilisateurs.get(i);
                     Toast.makeText(UserList.this, "You've selected: " + utilisateurData.getCourriel(), Toast.LENGTH_LONG).show();
                     DBContent.getInstance().GetUserPosition(DBContent.getInstance().getActualUserId());
+                    DBContent.getInstance().GetUserPosition(utilisateurData.getId());
                     double currentLatitude = utilisateurData.getPosition().getLatitude();
                     double currentLongitude = utilisateurData.getPosition().getLongitude();
                     LatLng latLng = new LatLng(currentLatitude, currentLongitude);
