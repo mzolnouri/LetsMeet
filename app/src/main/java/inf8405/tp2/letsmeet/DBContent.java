@@ -182,7 +182,7 @@ public class DBContent {
      */
     public void UploadActivitiesToRemoteContent()
     {
-        if(userMap_.containsKey(actualUserId_))
+        if(!userMap_.containsKey(actualUserId_))
         {
             Log.d("UploadActivity","actualUser vide");
             return;

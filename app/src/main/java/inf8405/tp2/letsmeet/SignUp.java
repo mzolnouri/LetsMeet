@@ -252,10 +252,10 @@ public class SignUp extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "Sign up successful!",
                         Toast.LENGTH_LONG).show();
-                Intent i = new Intent(getBaseContext(), ChooseGroup.class);
+                Intent i = new Intent(getBaseContext(), GoogleCalendarConnection.class);
                 Bundle emailBundle = new Bundle();
-                emailBundle.putString("mEmail", fEmail); // email
-                i.putExtras(emailBundle);
+//                emailBundle.putString("mEmail", fEmail); // email
+//                i.putExtras(emailBundle);
                 startActivity(i);
                 finish();
 

@@ -12,8 +12,8 @@ import java.util.UUID;
 public class Activite {
     private String id_=new String();
     private String description_=new String();
-    private Date debut_;
-    private Date fin_;
+    private String debut_=new String();
+    private String fin_=new String();
     private UUID uidFormat_ = UUID.fromString("91c83b36-e25c-11e5-9730-9a79f06e9478");
 
     public Activite()
@@ -24,13 +24,8 @@ public class Activite {
     {
         id_=uidFormat_.randomUUID().toString();
         description_=description;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
-        try {
-            this.debut_=sdf.parse(debut);
-            this.fin_=sdf.parse(fin);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        debut_=debut;
+        fin_=fin;
     }
     public String getId() {
         return id_;
@@ -50,30 +45,18 @@ public class Activite {
 
     public String getDebutStr() {
 
-        DateFormat df = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
-        return  df.format(debut_);
+        return debut_;
     }
 
     public void setDebutStr(String debut) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
-        try {
-            this.debut_=sdf.parse(debut);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        debut_=debut;
     }
 
     public String getFinStr() {
-        DateFormat df = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
-        return  df.format(fin_);
+        return fin_;
     }
 
     public void setFinStr(String fin) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
-        try {
-            this.fin_=sdf.parse(fin);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        fin_=fin;
     }
 }

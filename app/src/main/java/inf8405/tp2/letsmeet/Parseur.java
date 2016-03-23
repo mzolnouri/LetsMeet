@@ -285,6 +285,7 @@ public final class Parseur {
             jsonObject.put("heure_fin",list.get(i).getFinStr());
             jsonObject.put("activite",list.get(i).getDescription());
             jsonObject.put("idutilisateur",utilisateur.getId());
+            jsonArray.put(jsonObject);
         }
         return jsonArray.toString();
     }

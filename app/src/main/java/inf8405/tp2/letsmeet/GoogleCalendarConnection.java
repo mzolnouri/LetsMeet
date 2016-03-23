@@ -251,12 +251,22 @@ public class GoogleCalendarConnection extends Activity {
         @Override
         protected List<String> doInBackground(Void... params) {
             try {
-                return getDataFromApi();
+                List<String> lst = getDataFromApi();
+                Intent i = new Intent(getBaseContext(), ChooseGroup.class);
+                Bundle emailBundle = new Bundle();
+                startActivity(i);
+                finish();
+                return lst;
             } catch (Exception e) {
                 mLastError = e;
                 cancel(true);
+                Intent i = new Intent(getBaseContext(), ChooseGroup.class);
+                Bundle emailBundle = new Bundle();
+                startActivity(i);
+                finish();
                 return null;
             }
+
         }
 
         /**

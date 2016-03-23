@@ -100,6 +100,7 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
 
                     Utilisateur utilisateurData = fUtilisateurs.get(i);
                     Toast.makeText(UserList.this, "You've selected: " + utilisateurData.getCourriel(), Toast.LENGTH_LONG).show();
+                    DBContent.getInstance().GetUserPosition(DBContent.getInstance().getActualUserId());
                     double currentLatitude = utilisateurData.getPosition().getLatitude();
                     double currentLongitude = utilisateurData.getPosition().getLongitude();
                     LatLng latLng = new LatLng(currentLatitude, currentLongitude);
