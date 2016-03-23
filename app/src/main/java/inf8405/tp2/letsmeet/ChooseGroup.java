@@ -20,7 +20,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class ChooseGroup extends AppCompatActivity
+public class ChooseGroup extends AppCompatActivitygit 
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Fragment fragment_ = null;
@@ -43,7 +43,7 @@ public class ChooseGroup extends AppCompatActivity
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                
+
             }
         });
 
