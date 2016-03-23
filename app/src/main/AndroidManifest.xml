@@ -30,7 +30,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="inf8405.tp2.letsmeet.MainActivity">
+        <activity android:name="inf8405.tp2.letsmeet.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,7 +40,8 @@
         </activity>
         <activity
             android:name="inf8405.tp2.letsmeet.GoogleCalendarConnection"
-            android:label="Google Calendar API Android" >
+            android:label="Google Calendar API Android"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -52,7 +54,8 @@
         <activity
             android:name="inf8405.tp2.letsmeet.ChooseGroup"
             android:label="@string/title_activity_choose_group"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -79,22 +82,28 @@
 
         <activity
             android:name="inf8405.tp2.letsmeet.UserList"
-            android:label="@string/title_activity_user_liste"></activity>
+            android:label="@string/title_activity_user_liste"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="inf8405.tp2.letsmeet.FindLocation"
-            android:label="@string/title_activity_find_location"></activity>
+            android:label="@string/title_activity_find_location"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="inf8405.tp2.letsmeet.EditProfile"
-            android:label="@string/title_activity_user_liste"></activity>
+            android:label="@string/title_activity_user_liste"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="inf8405.tp2.letsmeet.CreerRencontre"
-            android:label="@string/title_activity_user_liste"></activity>
+            android:label="@string/title_activity_user_liste"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="inf8405.tp2.letsmeet.InterfacePreferences"
-            android:label="@string/title_activity_interface_preferences"></activity>
+            android:label="@string/title_activity_interface_preferences"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="inf8405.tp2.letsmeet.IConfirmationPreferences"
-            android:label="@string/title_activity_interface_confirmation_rencontre"></activity>
+            android:label="@string/title_activity_interface_confirmation_rencontre"
+            android:screenOrientation="portrait"></activity>
 
     </application>
 

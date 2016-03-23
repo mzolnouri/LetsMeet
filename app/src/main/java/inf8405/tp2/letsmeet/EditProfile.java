@@ -58,6 +58,9 @@ public class EditProfile extends Activity {
         mEdTxtNewPassword = (EditText) findViewById(R.id.edtTxtNewPasswordEP);
         mEdTxtComfirmNewPassword = (EditText) findViewById(R.id.edtTxtConfirmNewPasswordEP);
         viewImage=(ImageView)findViewById(R.id.imgVwProfileImgEP);
+        Bitmap actualUserImage = DBContent.getInstance().getActualUser().getPhotoEnBitmap();
+        viewImage.setImageBitmap(actualUserImage);
+
         btnUpdateProfile = (Button) findViewById(R.id.btnUpdateProfileEP);
         btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,15 +161,20 @@ public class EditProfile extends Activity {
             // Utilisateur utilisateurCourant = getUtilisateurCourant();
             // utilisateurCourant.setPassword(fNewPassword);
             // utilisateurCourant.setPhotoEnBitmap(bp);
+            if(fLastPassword.equals(DBContent.getInstance().getActualUser().getPassword())) {
+                DBContent.getInstance().getActualUser().setPassword(fNewPassword);
+                DBContent.getInstance().getActualUser().setPhotoEnBitmap(bp);
 
+                DBContent.getInstance().updateUserInformationInRemoteContent();
 
-            /* Après l'enregistrement  on revient  a choose group act */
-            Toast.makeText(getApplicationContext(),
-                    "Update profile successful!",
-                    Toast.LENGTH_LONG).show();
-            Intent i = new Intent(getBaseContext(), ChooseGroup.class);
-            startActivity(i);
-            finish();
+                /* Après l'enregistrement  on revient  a choose group act */
+                Toast.makeText(getApplicationContext(),
+                        "Update profile successful!",
+                        Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getBaseContext(), ChooseGroup.class);
+                startActivity(i);
+                finish();
+            }
         }
         if (cancel) {
             // There was an error; don't attempt login and focus the first

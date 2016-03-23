@@ -1,6 +1,7 @@
 package inf8405.tp2.letsmeet;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,12 +18,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class ChooseGroup extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Fragment fragment_ = null;
     private boolean viewIsAtHome_;
+    private Bitmap actualUserImage;
+    ImageView mViewImage = null;
 
 
     @Override
@@ -39,6 +43,7 @@ public class ChooseGroup extends AppCompatActivity
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                
             }
         });
 
@@ -50,6 +55,10 @@ public class ChooseGroup extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+//        mViewImage =(ImageView)findViewById(R.id.imageViewHeaderEP);
+//        actualUserImage = DBContent.getInstance().getActualUser().getPhotoEnBitmap();
+//        mViewImage.setImageBitmap(actualUserImage);
 
         displayView(R.id.nav_home);
 

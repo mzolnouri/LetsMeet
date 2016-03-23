@@ -119,7 +119,7 @@ public final class Parseur {
         user.setPhotoEn64(json.getString("photo"));
         user.setGroupeId(json.getString("groupe_idgroupe"));
         user.setPositionId(json.getString("position_idposition"));
-        //user.setPassword(json.getString("password"));
+        user.setPassword(json.getString("password"));
         if(json.getString("organisateur").contentEquals("1"))
         {
             user.setIsPlanner(true);
