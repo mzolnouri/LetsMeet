@@ -164,6 +164,28 @@ public final class Parseur {
 
         return  json.toString();
     }
+
+    public static String ParseUserWithoutPositionToJsonFormat(Utilisateur user) throws JSONException {
+        JSONObject userJson = new JSONObject();
+        userJson.put("idutilisateur",user.getId());
+        userJson.put("courriel",user.getCourriel());
+        userJson.put("photo",user.getPhotoEn64());
+        if(user.isPlanner())
+        {
+            userJson.put("organisateur","1");
+        }
+        else
+        {
+            userJson.put("organisateur","0");
+        }
+
+        userJson.put("position_idposition",user.getPositionId());
+        userJson.put("groupe_idgroupe",user.getGroupeId());
+        userJson.put("password",user.getPassword());
+
+        return userJson.toString();
+    }
+
     public static String ParseUserToJsonFormat(Utilisateur user) throws JSONException {
         JSONObject userJson = new JSONObject();
         JSONObject positionJson=new JSONObject();

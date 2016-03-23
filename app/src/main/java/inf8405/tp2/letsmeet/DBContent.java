@@ -614,7 +614,7 @@ public class DBContent {
             @Override
             public void run() {
                 try {
-                   String temp = DBConnexion.postRequest("http://najibarbaoui.com/najib/update_utilisateur.php", Parseur.ParseUserToJsonFormat(userMap_.get(actualUserId_)));
+                   String temp = DBConnexion.postRequest("http://najibarbaoui.com/najib/update_utilisateur.php", Parseur.ParseUserWithoutPositionToJsonFormat(userMap_.get(actualUserId_)));
                     Log.d("okkkkkkaa", temp);
                 } catch (JSONException e) {
                     e.printStackTrace();
