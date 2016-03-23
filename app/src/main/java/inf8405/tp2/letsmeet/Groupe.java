@@ -74,12 +74,8 @@ public class Groupe {
         return rencontre_;
     }
 
-    public boolean setRencontre(Rencontre rencontre) {
-        if (rencontre_==null)
-        {
+    public void setRencontre(Rencontre rencontre) {
+
             this.rencontre_ = rencontre;
-            return true;
-        }
-        return false;
     }
 }

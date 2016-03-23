@@ -161,9 +161,6 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
             catPreferencesList3.add(rencontre.getLieu3());
         }
 
-
-
-
         // Creating adapter for 3 spinners
         ArrayAdapter<String> dataAdapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, catPreferencesList1);
         ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, catPreferencesList2);
@@ -323,4 +320,25 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
         handleNewLocation(location);
     }
 
+//    public GeoPoint getLocationFromAddress(String strAddress){
+//
+//        Geocoder coder = new Geocoder(this);
+//        List<Address> address;
+//        GeoPoint p1 = null;
+//
+//        try {
+//            address = coder.getFromLocationName(strAddress,5);
+//            if (address==null) {
+//                return null;
+//            }
+//            Address location=address.get(0);
+//            location.getLatitude();
+//            location.getLongitude();
+//
+//            p1 = new GeoPoint((int) (location.getLatitude() * 1E6),
+//                    (int) (location.getLongitude() * 1E6));
+//
+//            return p1;
+//        }
+//    }
 }

@@ -3,6 +3,7 @@ package inf8405.tp2.letsmeet;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -23,9 +24,23 @@ public class Rencontre {
     public Rencontre ()
     {
         id_=uidFormat_.randomUUID().toString();
+        date_= Calendar.getInstance().getTime();
+        description_="description";
     }
 
-    public Rencontre( String description, String idPlanner, String idGroupe, String date)
+    public Rencontre(String lieu1, String lieu2, String lieu3, String idGroupe,String idPlanner, String description)
+    {
+        id_=uidFormat_.randomUUID().toString();
+        lieu1_=lieu1;
+        lieu2_=lieu2;
+        lieu3_=lieu3;
+        idGroupe_=idGroupe;
+        idPlanner_=idPlanner;
+        date_= Calendar.getInstance().getTime();
+        description_=description;
+    }
+
+    /*public Rencontre( String description, String idPlanner, String idGroupe, String date)
     {
         id_=uidFormat_.randomUUID().toString();
         description_=description;
@@ -38,7 +53,7 @@ public class Rencontre {
             e.printStackTrace();
         }
 
-    }
+    }*/
     public String getId() {
         return id_;
     }
@@ -57,6 +72,18 @@ public class Rencontre {
 
     public String getDateStr() {
         DateFormat df = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
+        return  df.format(date_);
+    }
+
+    public String getJour()
+    {
+        DateFormat df = new SimpleDateFormat("yyyy-M-dd");
+        return  df.format(date_);
+    }
+
+    public String getHeure()
+    {
+        DateFormat df = new SimpleDateFormat("hh:mm:ss");
         return  df.format(date_);
     }
 

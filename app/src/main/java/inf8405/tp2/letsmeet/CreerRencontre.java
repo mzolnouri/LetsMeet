@@ -17,9 +17,11 @@ public class CreerRencontre extends AppCompatActivity {
     private EditText mEdtTxtLieu1;
     private EditText mEdtTxtLieu2;
     private EditText mEdtTxtLieu3;
+    private EditText mEdtTxtDescptn;
     private String mLieu1;
     private String mLieu2;
     private String mLieu3;
+    private String Descptn;
     private Button mBtnCreerRencontre = null;
 
     @Override
@@ -44,15 +46,19 @@ public class CreerRencontre extends AppCompatActivity {
         mEdtTxtLieu1 = (EditText) findViewById(R.id.edtTxtLieu1R);
         mEdtTxtLieu2 = (EditText) findViewById(R.id.edtTxtLieu2R);
         mEdtTxtLieu3 = (EditText) findViewById(R.id.edtTxtLieu3R);
+        mEdtTxtDescptn = (EditText) findViewById(R.id.edtTxtDescR);
+
         // Reset errors.
         mEdtTxtLieu1.setError(null);
         mEdtTxtLieu2.setError(null);
         mEdtTxtLieu3.setError(null);
+        mEdtTxtDescptn.setError(null);
 
         // Store values at the time of the create meeting.
         mLieu1 = mEdtTxtLieu1.getText().toString();
         mLieu2 = mEdtTxtLieu2.getText().toString();
         mLieu3 = mEdtTxtLieu3.getText().toString();
+        Descptn = mEdtTxtDescptn.getText().toString();
 
         View focusView = null;
 
@@ -76,8 +82,12 @@ public class CreerRencontre extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),
                     "Rencontre créée!",
                     Toast.LENGTH_LONG).show();
-            Intent i = new Intent(getBaseContext(), ChooseGroup.class);
-            startActivity(i);
+            //Intent i = new Intent(getBaseContext(), ChooseGroup.class);
+            //startActivity(i);
+            if(Descptn == null)
+                Descptn = "";
+            DBContent.getInstance().creerRencontre(mLieu1, mLieu2, mLieu3,Descptn);
+
             finish();
 
         }else{

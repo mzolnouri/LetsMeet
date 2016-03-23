@@ -94,18 +94,43 @@ public class DBContent {
 
     /**
      * Cette fonction permet d'attribuer un objet de type rencontre a l'utilisateur actuel
-     * @param lieu
-     * @param description
-     * @param date
+     * @param lieu1
+     * @param lieu2
+     * @param lieu3
      * @return boolean si la rencontre a ete attribue a l'utilisateur actuel
      */
-    public boolean creerRencontre(String lieu, String description, String date)
+    public void creerRencontre(String lieu1, String lieu2, String lieu3, String description)
     {
         if (!groupsMap_.containsKey(actualGroupId_))
-            return false;
-
-        return groupsMap_.get(actualGroupId_).setRencontre(new Rencontre(description, actualUserId_, actualGroupId_, date));
+            return ;
+        groupsMap_.get(actualGroupId_).setRencontre(new Rencontre(lieu1, lieu2, lieu3, actualGroupId_, actualUserId_,description));
+        this.sendRencontreToRemoteContent(groupsMap_.get(actualGroupId_).getRencontre());
     }
+
+    public void sendRencontreToRemoteContent(final Rencontre rencontre)
+    {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    DBConnexion.postRequest("http://najibarbaoui.com/najib/insert_rencontre.php",Parseur.ParseRencontreToJson(rencontre));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * cette fonction permet de recuperer la recontre du groupe actuel, si la rencontre nest pas creer essaye de la recupere de la base de donnee

@@ -301,4 +301,18 @@ public final class Parseur {
 
         return rencontreConfirme;
     }
+
+    public static String ParseRencontreToJson(Rencontre rencontre) throws JSONException {
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("idrencontre",rencontre.getId());
+        jsonObject.put("lieu1",rencontre.getLieu1());
+        jsonObject.put("lieu2",rencontre.getLieu2());
+        jsonObject.put("lieu3",rencontre.getLieu3());
+        jsonObject.put("jour",rencontre.getJour());
+        jsonObject.put("description",rencontre.getDescription());
+        jsonObject.put("groupe_idgroupe",rencontre.getIdGroupe());
+        jsonObject.put("idorganisateur",rencontre.getIdPlanner());
+
+        return jsonObject.toString();
+    }
 }
