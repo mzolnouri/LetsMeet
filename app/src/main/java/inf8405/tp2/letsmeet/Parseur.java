@@ -288,4 +288,16 @@ public final class Parseur {
         }
         return jsonArray.toString();
     }
+
+    public static RencontreConfirme ParseJsonToRencontreConfirmer(String responsePost) throws JSONException {
+
+        RencontreConfirme rencontreConfirme=new RencontreConfirme();
+        JSONObject jsonObject=new JSONObject(responsePost);
+
+        rencontreConfirme.setLieu(jsonObject.getString("lieu"));
+        String temp= jsonObject.getString("jour") + " " + jsonObject.getString("heure");
+        rencontreConfirme.setDate(temp);
+
+        return rencontreConfirme;
+    }
 }

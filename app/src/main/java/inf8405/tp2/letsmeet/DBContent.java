@@ -778,6 +778,28 @@ public class DBContent {
         return position[0];
     }
 
+    public RencontreConfirme recupereResultatVoteRencontre(final String GroupId)
+    {
+        final RencontreConfirme[] rencontreConfirme = {null};
+
+        Thread thread=new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        String responsePost=DBConnexion.getRequest("http://najibarbaoui.com/najib/confirmationrencontrebygroupe.php?id_groupe=" + GroupId);
+                        if (!responsePost.contentEquals("0"))
+                        {
+                            rencontreConfirme[0] =Parseur.ParseJsonToRencontreConfirmer(responsePost);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        return rencontreConfirme[0];
+    }
     void uploadActivitiesToRemoteContent()
     {
         Thread thread=new Thread(new Runnable() {
