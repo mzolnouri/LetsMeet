@@ -81,24 +81,32 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
 
         // Spinner click listener
         spinner1.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+
         spinner2.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
         spinner3.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
 
         // Spinner Drop down elements of list 1
         List<String> catPreferencesList1 = new ArrayList<String>();
-        catPreferencesList1.add("Automobile");
-        catPreferencesList1.add("Business Services");
-        catPreferencesList1.add("Computers");
-        // Spinner Drop down elements of list 2
+        Rencontre rencontre=DBContent.getInstance().getActualGroupeRencontre();
         List<String> catPreferencesList2 = new ArrayList<String>();
-        catPreferencesList2.add("Automobile");
-        catPreferencesList2.add("Business Services");
-        catPreferencesList2.add("Computers");
-        // Spinner Drop down elementsof list 3
         List<String> catPreferencesList3 = new ArrayList<String>();
-        catPreferencesList3.add("Automobile");
-        catPreferencesList3.add("Business Services");
-        catPreferencesList3.add("Computers");
+        if(rencontre!=null)
+        {
+            catPreferencesList1.add(rencontre.getLieu1());
+            catPreferencesList1.add(rencontre.getLieu2());
+            catPreferencesList1.add(rencontre.getLieu3());
+            // Spinner Drop down elements of list 2
+
+            catPreferencesList2.add(rencontre.getLieu1());
+            catPreferencesList2.add(rencontre.getLieu2());
+            catPreferencesList2.add(rencontre.getLieu3());
+            // Spinner Drop down elementsof list 3
+            catPreferencesList3.add(rencontre.getLieu1());
+            catPreferencesList3.add(rencontre.getLieu2());
+            catPreferencesList3.add(rencontre.getLieu3());
+        }
+
+
 
 
         // Creating adapter for 3 spinners

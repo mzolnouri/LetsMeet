@@ -99,6 +99,7 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
 
                     Log.e("search", "here---------------- listener");
 
+                    DBContent dbContent=DBContent.getInstance();
                     Utilisateur utilisateurData = fUtilisateurs.get(i);
                     Toast.makeText(UserList.this, "You've selected: " + utilisateurData.getCourriel(), Toast.LENGTH_LONG).show();
                     DBContent.getInstance().GetUserPosition(DBContent.getInstance().getActualUserId());

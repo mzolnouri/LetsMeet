@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
@@ -67,11 +68,17 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
         fGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
 
         fResolver = this.getContentResolver();
+        RencontreConfirme rencontreConfirme=DBContent.getInstance().recupereResultatVoteRencontre(DBContent.getInstance().getActualGroupId());
+        String l = rencontreConfirme.getLieu();
+        String d = rencontreConfirme.getDate();
 
-//        lieuRencontreMsg = (EditText) findViewById(R.id.txtVwLieuMsgCR);
-//        lieuRencontre = (EditText) findViewById(R.id.txtVwLieuCR);
-//        DateRencontreMsg = (EditText) findViewById(R.id.txtVwDateRencontreMsgCR);
-//        DateRencontre = (EditText) findViewById(R.id.txtVwDateRencontreCR);
+
+        lieuRencontreMsg = (TextView) findViewById(R.id.txtVwLieuMsgCR);
+        lieuRencontre = (TextView) findViewById(R.id.txtVwLieuCR);
+        DateRencontreMsg = (TextView) findViewById(R.id.txtVwDateRencontreMsgCR);
+        DateRencontre = (TextView) findViewById(R.id.txtVwDateRencontreCR);
+        lieuRencontre.setText(l);
+        DateRencontre.setText(d);
     }
 
     @Override

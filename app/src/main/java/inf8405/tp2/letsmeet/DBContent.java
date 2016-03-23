@@ -798,6 +798,12 @@ public class DBContent {
                     }
                 }
             });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return rencontreConfirme[0];
     }
     void uploadActivitiesToRemoteContent()
@@ -814,6 +820,12 @@ public class DBContent {
                 }
             }
         });
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 

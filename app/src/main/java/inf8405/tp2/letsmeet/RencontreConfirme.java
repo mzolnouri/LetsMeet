@@ -11,7 +11,7 @@ import java.util.Date;
 public class RencontreConfirme {
 
     private String lieu_=new String();
-    private Date date_;
+    private String date_;
 
     public RencontreConfirme()
     {
@@ -26,16 +26,10 @@ public class RencontreConfirme {
     }
 
     public String getDate() {
-        DateFormat df = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
-        return  df.format(date_);
+        return date_;
     }
 
     public void setDate(String date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd hh:mm:ss");
-        try {
-            date_=sdf.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+            date_=date;
     }
 }
