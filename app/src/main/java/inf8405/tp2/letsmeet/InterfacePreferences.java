@@ -6,6 +6,7 @@ package inf8405.tp2.letsmeet;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -17,7 +18,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -36,13 +39,18 @@ import java.util.List;
 import java.util.Map;
 
 public class InterfacePreferences extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener, AdapterView.OnItemSelectedListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private GoogleApiClient fGoogleApiClient;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private LocationRequest fLocationRequest;
     public static final String TAG = UserList.class.getSimpleName();
     private GoogleMap fMap;
+    private String mPreference1 = "";
+    private String mPreference2 = "";
+    private String mPreference3 = "";
+    private Button btnEnregistrer = null;
+    private Button btnAnnuler = null;
     ArrayList<Preference> fPreferences;
 
     /* Pop up */
@@ -52,6 +60,7 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
+
 
         // Create the LocationRequest object
         fLocationRequest = LocationRequest.create()
@@ -66,8 +75,7 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
         mapFragment.getMapAsync(this);
         fGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
 
-        /* Get the map containing all users */
-        //DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
+
         fPreferences = new ArrayList<>();
         for (Map.Entry<String, Preference> entry : DBContent.getInstance().getPreferencesMap().entrySet()) {
             fPreferences.add(entry.getValue());
@@ -80,26 +88,73 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
         Spinner spinner3 = (Spinner) findViewById(R.id.spinner3P);
 
         // Spinner click listener
-        spinner1.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // On selecting a spinner item
+                //Spinner mySpinner = (Spinner)findViewById(R.id.spinner1P);
+                String item = parent.getItemAtPosition(position).toString();
 
-        spinner2.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
-        spinner3.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+                // Showing selected spinner item
+                Toast.makeText(parent.getContext(), "Selected p1: " + item, Toast.LENGTH_LONG).show();
+                mPreference1 = item;
+            }
 
-        // Spinner Drop down elements of list 1
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // On selecting a spinner item
+                String item = parent.getItemAtPosition(position).toString();
+
+                // Showing selected spinner item
+                Toast.makeText(parent.getContext(), "Selected p2: " + item, Toast.LENGTH_LONG).show();
+                mPreference2 = item;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // On selecting a spinner item
+                String item = parent.getItemAtPosition(position).toString();
+
+                // Showing selected spinner item
+                Toast.makeText(parent.getContext(), "Selected p3: " + item, Toast.LENGTH_LONG).show();
+                mPreference3 = item;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
         List<String> catPreferencesList1 = new ArrayList<String>();
-        Rencontre rencontre=DBContent.getInstance().getActualGroupeRencontre();
+        final Rencontre rencontre=DBContent.getInstance().getActualGroupeRencontre();
         List<String> catPreferencesList2 = new ArrayList<String>();
         List<String> catPreferencesList3 = new ArrayList<String>();
         if(rencontre!=null)
         {
+            // Spinner Drop down elements of list 1
             catPreferencesList1.add(rencontre.getLieu1());
             catPreferencesList1.add(rencontre.getLieu2());
             catPreferencesList1.add(rencontre.getLieu3());
-            // Spinner Drop down elements of list 2
 
+            // Spinner Drop down elements of list 2
             catPreferencesList2.add(rencontre.getLieu1());
             catPreferencesList2.add(rencontre.getLieu2());
             catPreferencesList2.add(rencontre.getLieu3());
+
             // Spinner Drop down elementsof list 3
             catPreferencesList3.add(rencontre.getLieu1());
             catPreferencesList3.add(rencontre.getLieu2());
@@ -121,8 +176,8 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
 
         // attaching data adapter to spinner
         spinner1.setAdapter(dataAdapter1);
-        spinner1.setAdapter(dataAdapter2);
-        spinner1.setAdapter(dataAdapter3);
+        spinner2.setAdapter(dataAdapter2);
+        spinner3.setAdapter(dataAdapter3);
 
 
         fResolver = this.getContentResolver();
@@ -136,6 +191,37 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
         } else {
             Log.e("Cursor close 1", "----------------");
         }
+
+        btnEnregistrer = (Button) findViewById(R.id.btnSavePerferencesP);
+        btnEnregistrer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPreference1 == "")
+                    mPreference1 = rencontre.getLieu1();
+                if (mPreference2 == "")
+                    mPreference2 = rencontre.getLieu2();
+                if (mPreference3 == "")
+                    mPreference3 = rencontre.getLieu3();
+
+                DBContent.getInstance().addPreference(Constants.highPriority, mPreference1);
+                DBContent.getInstance().addPreference(Constants.mediumPriority, mPreference2);
+                DBContent.getInstance().addPreference(Constants.lowPriority, mPreference3);
+
+                DBContent.getInstance().addPreferencesToRemoteContent(DBContent.getInstance().getActualUser());
+                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //startActivity(intent);
+                finish();
+            }
+        });
+        btnAnnuler = (Button) findViewById(R.id.btnAnnulerP);
+        btnAnnuler.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -237,17 +323,4 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
         handleNewLocation(location);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // On selecting a spinner item
-        String item = parent.getItemAtPosition(position).toString();
-
-        // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        // TODO Auto-generated method stub
-    }
 }
