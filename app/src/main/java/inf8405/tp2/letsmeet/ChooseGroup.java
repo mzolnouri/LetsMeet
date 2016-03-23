@@ -20,7 +20,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class ChooseGroup extends AppCompatActivitygit 
+public class ChooseGroup extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private Fragment fragment_ = null;

@@ -28,6 +28,7 @@ public class NavHomeFragment extends Fragment{
     private Button mBtnCreerRencontre = null;
     private Button mBtnConfirmationRencontre = null;
     private RadioButton radioButtonItem;
+    private int mIdGroupe;
     Activity mActivity;
     int mButtonSelected;
     @Nullable
@@ -48,21 +49,33 @@ public class NavHomeFragment extends Fragment{
             radioButtonItem.setText(listName.get(i).getGroupName());
 
         }
+        mRadioGroup.check(R.id.rdBtnpGroup1);
+        mIdGroupe = mRadioGroup.getCheckedRadioButtonId();
+
+
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId){
-                    case 0:
-                        DBContent.getInstance().getActualUser().setGroupeId("0633a385-4b36-4135-9987-f48b02891d82");
+                    case R.id.rdBtnpGroup1:
+                        DBContent.getInstance().getActualUser().setGroupeId("aff7a903-2d99-4bd1-b16b-69a2193d3284");
+                        DBContent.getInstance().setActualGroupId("aff7a903-2d99-4bd1-b16b-69a2193d3284");
+                        DBContent.getInstance().updateUserInformationInRemoteContent();
                         break;
-                    case 1:
-                        DBContent.getInstance().getActualUser().setGroupeId("28bc1b1f-fsdfdf9-bq12oo-08dsadsagfhgaa44");
+                    case R.id.rdBtnpGroup2:
+                        DBContent.getInstance().getActualUser().setGroupeId("1e215d6c-7055-41f9-8aed-d18dfd246da7");
+                        DBContent.getInstance().setActualGroupId("1e215d6c-7055-41f9-8aed-d18dfd246da7");
+                        DBContent.getInstance().updateUserInformationInRemoteContent();
                         break;
-                    case 2:
-                        DBContent.getInstance().getActualUser().setGroupeId("294feaa9-852d-45e6-8151-178019aa3358");
+                    case R.id.rdBtnpGroup3:
+                        DBContent.getInstance().getActualUser().setGroupeId("fc4c707a-049c-4c7f-9cb8-7bb5469db2ec");
+                        DBContent.getInstance().setActualGroupId("fc4c707a-049c-4c7f-9cb8-7bb5469db2ec");
+                        DBContent.getInstance().updateUserInformationInRemoteContent();
                         break;
-                    case 3:
-                        DBContent.getInstance().getActualUser().setGroupeId("320431b2-e673-4c9f-ba0a-2f9b6fbd02a1");
+                    case R.id.rdBtnpGroup4:
+                        DBContent.getInstance().getActualUser().setGroupeId("43a31fa2-f3cb-40df-81fe-bcf3e7cbd3a3");
+                        DBContent.getInstance().setActualGroupId("43a31fa2-f3cb-40df-81fe-bcf3e7cbd3a3");
+                        DBContent.getInstance().updateUserInformationInRemoteContent();
                         break;
                 }
             }

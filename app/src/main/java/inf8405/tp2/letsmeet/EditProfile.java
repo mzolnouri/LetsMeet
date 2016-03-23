@@ -163,7 +163,8 @@ public class EditProfile extends Activity {
             // utilisateurCourant.setPhotoEnBitmap(bp);
             if(fLastPassword.equals(DBContent.getInstance().getActualUser().getPassword())) {
                 DBContent.getInstance().getActualUser().setPassword(fNewPassword);
-                DBContent.getInstance().getActualUser().setPhotoEnBitmap(bp);
+                if(bp != null)
+                    DBContent.getInstance().getActualUser().setPhotoEnBitmap(bp);
 
                 DBContent.getInstance().updateUserInformationInRemoteContent();
 
