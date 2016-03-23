@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
     TextView lieuRencontre = null;
     TextView DateRencontreMsg = null;
     TextView DateRencontre = null;
+    private Button btnRevenirMP = null;
 
     /* Pop up */
     ContentResolver fResolver;
@@ -83,6 +85,16 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
         DateRencontre = (TextView) findViewById(R.id.txtVwDateRencontreCR);
         lieuRencontre.setText(l);
         DateRencontre.setText(d);
+
+        btnRevenirMP = (Button) findViewById(R.id.btnAnnulerP);
+        btnRevenirMP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
