@@ -85,7 +85,6 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
         DateRencontre = (TextView) findViewById(R.id.txtVwDateRencontreCR);
         lieuRencontre.setText(l);
         DateRencontre.setText(d);
-
         btnRevenirMP = (Button) findViewById(R.id.btnAnnulerP);
         btnRevenirMP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +94,8 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
                 finish();
             }
         });
+        TextView niveauBattrie = (TextView)findViewById(R.id.txtNiveauBattery);
+        niveauBattrie.setText(String.valueOf(getBatteryLevel())+"%");
     }
 
     @Override
