@@ -17,8 +17,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class ChooseGroup extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,20 +28,27 @@ public class ChooseGroup extends AppCompatActivity
     private boolean viewIsAtHome_;
     private Bitmap actualUserImage;
     ImageView mViewImage = null;
+    private DrawerLayout drawerLayout;
+    private Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_group);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        setContentView(R.layout.activity_choose_group);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //initNavigationDrawer();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setContentView(R.layout.nav_header_choose_group);
+                mViewImage =(ImageView)findViewById(R.id.imageViewHeaderH);
+                actualUserImage = DBContent.getInstance().getActualUser().getPhotoEnBitmap();
+                mViewImage.setImageBitmap(actualUserImage);
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
@@ -55,15 +63,66 @@ public class ChooseGroup extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-//        mViewImage =(ImageView)findViewById(R.id.imageViewHeaderEP);
-//        actualUserImage = DBContent.getInstance().getActualUser().getPhotoEnBitmap();
-//        mViewImage.setImageBitmap(actualUserImage);
+        View header = navigationView.getHeaderView(0);
+        TextView tv_email = (TextView)header.findViewById(R.id.txtVwHeaderProfileEmailH);
+        tv_email.setText(DBContent.getInstance().getActualUser().getCourriel());
+        mViewImage =(ImageView)header.findViewById(R.id.imageViewHeaderH);
+        actualUserImage = DBContent.getInstance().getActualUser().getPhotoEnBitmap();
+        mViewImage.setImageBitmap(actualUserImage);
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
         displayView(R.id.nav_home);
+//        initNavigationDrawer();
 
 
     }
+
+//    public void initNavigationDrawer() {
+//
+//        NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(MenuItem menuItem) {
+//
+//                int id = menuItem.getItemId();
+//
+//                switch (id){
+//                    case R.id.home:
+//                        Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
+//                        drawerLayout.closeDrawers();
+//                        break;
+//                    case R.id.settings:
+//                        Toast.makeText(getApplicationContext(),"Settings",Toast.LENGTH_SHORT).show();
+//                        break;
+//
+//                }
+//                return true;
+//            }
+//        });
+//        View header = navigationView.getHeaderView(0);
+//        TextView tv_email = (TextView)header.findViewById(R.id.txtVwHeaderProfileEmailH);
+//        tv_email.setText(DBContent.getInstance().getActualUser().getCourriel());
+//        mViewImage =(ImageView)header.findViewById(R.id.imageViewHeaderH);
+//        actualUserImage = DBContent.getInstance().getActualUser().getPhotoEnBitmap();
+//        mViewImage.setImageBitmap(actualUserImage);
+//        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+//
+//        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close){
+//
+//            @Override
+//            public void onDrawerClosed(View v){
+//                super.onDrawerClosed(v);
+//            }
+//
+//            @Override
+//            public void onDrawerOpened(View v) {
+//                super.onDrawerOpened(v);
+//            }
+//        };
+//        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+//        actionBarDrawerToggle.syncState();
+//    }
+
 
     @Override
     public void onBackPressed() {

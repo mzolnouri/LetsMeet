@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
-        android:id="@+id/textView" />
+        android:id="@+id/txtVwHeaderProfileEmailH" />
 
     <Button
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         android:text="test"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/textView"
+        android:layout_toEndOf="@+id/txtVwHeaderProfileEmailH"
         android:layout_marginBottom="52dp" />
 
 </RelativeLayout>
