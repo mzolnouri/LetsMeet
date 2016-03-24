@@ -6,9 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by mahdi on 16-02-29.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
+
 @SuppressLint("NewApi")
 public class Profile_Fragment extends Fragment {
     @Override

@@ -18,9 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by mahdi on 16-03-01.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 public class UserAdapter extends BaseAdapter {
     public List<Utilisateur> fData;
     private ArrayList<Utilisateur> fArrayList;

@@ -11,9 +11,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-/**
- * Created by youssef on 01/03/2016.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 public final class DBConnexion {
 
     public static final MediaType JSON

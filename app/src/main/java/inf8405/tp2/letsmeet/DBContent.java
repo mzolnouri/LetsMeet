@@ -18,9 +18,8 @@ import javax.xml.transform.sax.TemplatesHandler;
 
 import okhttp3.internal.Util;
 
-/**
- * Created by youssef on 05/03/2016.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 public class DBContent {
 
     // la map contient les utilisateurs qui appartiennent au groupe auquel appartient l'utilisateur

@@ -9,11 +9,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-/**
- * Created by youssef on 04/03/2016.
- */
-
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 public final class Parseur {
 
     public static Map<String,Utilisateur> ParseToUsersMap(String message) throws JSONException {

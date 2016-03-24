@@ -20,9 +20,8 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-/**
- * Created by mahdi on 16-03-13.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 public class NavHomeFragment extends Fragment{
     View homeView;
     private RadioGroup mRadioGroup = null;

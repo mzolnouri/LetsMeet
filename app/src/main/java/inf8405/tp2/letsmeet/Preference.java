@@ -2,9 +2,8 @@ package inf8405.tp2.letsmeet;
 
 import java.util.UUID;
 
-/**
- * Created by youssef on 24/02/2016.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 public class Preference {
     private String id_=new String();
     private String adresse_ = new String();

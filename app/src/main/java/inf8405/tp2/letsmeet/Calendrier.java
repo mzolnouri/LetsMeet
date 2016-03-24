@@ -3,9 +3,9 @@ package inf8405.tp2.letsmeet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by youssef on 22/03/2016.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
+
 public class Calendrier {
 
     public List<Activite> ListDactivites_ = new ArrayList<Activite>();

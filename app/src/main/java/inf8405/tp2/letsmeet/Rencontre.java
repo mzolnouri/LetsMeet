@@ -7,9 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-/**
- * Created by youssef on 15/03/2016.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 public class Rencontre {
     private String id_=new String();
     private String lieu1_ = new String();

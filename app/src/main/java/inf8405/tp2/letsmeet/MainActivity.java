@@ -1,4 +1,6 @@
 package inf8405.tp2.letsmeet;
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 
 import android.content.Intent;
 import android.os.AsyncTask;

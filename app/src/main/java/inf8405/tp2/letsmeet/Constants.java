@@ -1,8 +1,7 @@
 package inf8405.tp2.letsmeet;
 
-/**
- * Created by youssef on 24/02/2016.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 public final class Constants {
 
     static public final String highPriority="High";

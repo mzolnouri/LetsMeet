@@ -1,8 +1,7 @@
 package inf8405.tp2.letsmeet;
 
-/**
- * Created by mahdi on 16-03-01.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;

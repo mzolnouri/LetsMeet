@@ -7,9 +7,8 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.util.UUID;
 
-/**
- * Created by youssef on 24/02/2016.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 
 // exemple d'information recupere pour une position formet json : https://developers.google.com/maps/documentation/geocoding/intro?hl=fr
 public class Position {

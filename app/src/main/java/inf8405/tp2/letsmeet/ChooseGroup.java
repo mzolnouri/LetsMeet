@@ -1,3 +1,6 @@
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
+
 package inf8405.tp2.letsmeet;
 
 import android.content.Intent;
@@ -52,10 +55,10 @@ public class ChooseGroup extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
         TextView tv_email = (TextView)header.findViewById(R.id.txtVwHeaderProfileEmailH);
-        if(tv_email != null )
+        if(tv_email != null && DBContent.getInstance().getActualUser().getCourriel() != null )
             tv_email.setText(DBContent.getInstance().getActualUser().getCourriel());
         mViewImage =(ImageView)header.findViewById(R.id.imageViewHeaderH);
-        if(mViewImage != null) {
+        if(mViewImage != null && DBContent.getInstance().getActualUser().getPhotoEnBitmap() != null) {
             actualUserImage = DBContent.getInstance().getActualUser().getPhotoEnBitmap();
             mViewImage.setImageBitmap(actualUserImage);
         }

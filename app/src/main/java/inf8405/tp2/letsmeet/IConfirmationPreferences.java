@@ -1,9 +1,8 @@
 package inf8405.tp2.letsmeet;
 
 
-/**
- * Created by mahdi on 16-03-22.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 
 import android.Manifest;
 import android.content.ContentResolver;
@@ -41,6 +40,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import android.os.Handler;
+import android.os.Message;
 
 public class IConfirmationPreferences extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, AdapterView.OnItemSelectedListener {
@@ -58,6 +59,9 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
     private double addreToLatitude;
     private double addreToLongitude;
     private String lieu = "2500, chemin de Polytechnique, Montreal, Canada";
+    private String latLongFromAdd = "";
+    double currentLatitude = 0.0;
+    double currentLongitude = 0.0;
 
 
     /* Pop up */
@@ -166,21 +170,6 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
         fMap.addMarker(new MarkerOptions().position(sydney).title("Location"));
         fMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
-    public Pair<Double,Double> getLocationFromAdresse(String addresse){
-        Geocoder coder = new Geocoder(this);
-        Pair<Double, Double> latlong = new Pair<>(-73.628182,45.502481);
-        try {
-            ArrayList<Address> adresses = (ArrayList<Address>) coder.getFromLocationName(addresse, 50);
-            for(Address add : adresses){
-                addreToLatitude = add.getLongitude();
-                addreToLongitude = add.getLatitude();
-                latlong = new Pair<>(addreToLatitude,addreToLongitude);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return latlong;
-    }
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -206,17 +195,14 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
 
     private void handleNewLocation(Location location) {
         Log.d(TAG, location.toString());
-        Pair<Double, Double> ll = new Pair<>(0.0,0.0);
-        ll = getLocationFromAdresse(lieu);
-        double currentLatitude = location.getLatitude();
-        double currentLongitude = location.getLongitude();
-        currentLatitude = ll.first;
-        currentLongitude = ll.second;
-        LatLng latLng = new LatLng(currentLatitude, currentLongitude);
-        MarkerOptions options = new MarkerOptions().position(latLng).title("Actual location");
-        fMap.addMarker(options);
-        float zoomLevel = 16; //This goes up to 21
-        fMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+        //currentLatitude = location.getLatitude();
+        //currentLongitude = location.getLongitude();
+
+
+        /* get lon et lat */
+        GeocodingLocation locationAddress = new GeocodingLocation();
+        locationAddress.getAddressFromLocation(lieu, getApplicationContext(), new GeocoderHandler());
+
     }
 
     @Override
@@ -255,6 +241,38 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // TODO Auto-generated method stub
+    }
+    private class GeocoderHandler extends Handler {
+        @Override
+        public void handleMessage(Message message) {
+            String locationAddress;
+            switch (message.what) {
+                case 1:
+                    Bundle bundle = message.getData();
+                    locationAddress = bundle.getString("address");
+                    break;
+                default:
+                    locationAddress = null;
+            }
+            latLongFromAdd = locationAddress;
+            String[] str = latLongFromAdd.split(";");
+            if(str.length > 0) {
+                currentLatitude = Double.valueOf(str[0]);
+                currentLongitude = Double.valueOf(str[1]);
+                LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+                MarkerOptions options = new MarkerOptions().position(latLng).title("Actual location");
+                fMap.addMarker(options);
+                float zoomLevel = 16; //This goes up to 21
+                fMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+            }else{
+                LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+                MarkerOptions options = new MarkerOptions().position(latLng).title("Actual location");
+                fMap.addMarker(options);
+                float zoomLevel = 16; //This goes up to 21
+                fMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+            }
+
+        }
     }
 
 

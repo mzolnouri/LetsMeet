@@ -5,9 +5,8 @@ import android.util.Base64;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by mahdi on 16-03-10.
- */
+// INF8405 - Laboratoire 2
+//Auteurs : Najib Arbaoui (1608366) && Youssef Zemmahi (1665843) && Zolnouri Mahdi (1593999)
 public class ImageCoder {
     private int longueur_;
     Bitmap bitmap_;
