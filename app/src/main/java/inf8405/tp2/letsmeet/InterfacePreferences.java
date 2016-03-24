@@ -9,12 +9,15 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import com.google.android.gms.location.LocationListener;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,6 +37,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +56,9 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
     private Button btnEnregistrer = null;
     private Button btnAnnuler = null;
     ArrayList<Preference> fPreferences;
+    private double addreToLatitude;
+    private double addreToLongitude;
+    private String lieu = "";
 
     /* Pop up */
     ContentResolver fResolver;
@@ -98,6 +105,22 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
                 // Showing selected spinner item
                 Toast.makeText(parent.getContext(), "Selected p1: " + item, Toast.LENGTH_LONG).show();
                 mPreference1 = item;
+
+                Pair<Double, Double> ll = new Pair<>(-73.628182,45.502481);
+                ll = getLocationFromAdresse(mPreference1);
+                double currentLatitude = 0.0;
+                double currentLongitude = 0.0;
+                currentLatitude = ll.first;
+                currentLongitude = ll.second;
+                if(currentLatitude == 0.0 && currentLongitude == 0.0) {
+                    currentLatitude = -73.628182;
+                    currentLongitude = 45.502481;
+                }
+                LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+                MarkerOptions options = new MarkerOptions().position(latLng).title("Actual location");
+                fMap.addMarker(options);
+                float zoomLevel = 16; //This goes up to 21
+                fMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
             }
 
             @Override
@@ -111,9 +134,26 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
                 // On selecting a spinner item
                 String item = parent.getItemAtPosition(position).toString();
 
-                // Showing selected spinner item
+                                // Showing selected spinner item
                 Toast.makeText(parent.getContext(), "Selected p2: " + item, Toast.LENGTH_LONG).show();
                 mPreference2 = item;
+
+                Pair<Double, Double> ll = new Pair<>(-73.628182,45.502481);
+                ll = getLocationFromAdresse(mPreference2);
+                double currentLatitude = 0.0;
+                double currentLongitude = 0.0;
+                currentLatitude = ll.first;
+                currentLongitude = ll.second;
+                if(currentLatitude == 0.0 && currentLongitude == 0.0) {
+                    currentLatitude = -73.628182;
+                    currentLongitude = 45.502481;
+                }
+                LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+                MarkerOptions options = new MarkerOptions().position(latLng).title("Actual location");
+                fMap.addMarker(options);
+                float zoomLevel = 16; //This goes up to 21
+                fMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
+
             }
 
             @Override
@@ -130,6 +170,23 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
                 // Showing selected spinner item
                 Toast.makeText(parent.getContext(), "Selected p3: " + item, Toast.LENGTH_LONG).show();
                 mPreference3 = item;
+
+
+                Pair<Double, Double> ll = new Pair<>(-73.628182,45.502481);
+                ll = getLocationFromAdresse(mPreference3);
+                double currentLatitude = 0.0;
+                double currentLongitude = 0.0;
+                currentLatitude = ll.first;
+                currentLongitude = ll.second;
+                if(currentLatitude == 0.0 && currentLongitude == 0.0) {
+                    currentLatitude = -73.528182;
+                    currentLongitude = 45.102481;
+                }
+                LatLng latLng = new LatLng(currentLatitude, currentLongitude);
+                MarkerOptions options = new MarkerOptions().position(latLng).title("Actual location");
+                fMap.addMarker(options);
+                float zoomLevel = 16; //This goes up to 21
+                fMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoomLevel));
             }
 
             @Override
@@ -193,6 +250,9 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
         btnEnregistrer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mPreference1 != null && mPreference2 != null && mPreference3 != null && rencontre != null){
+
+
                 if (mPreference1 == "")
                     mPreference1 = rencontre.getLieu1();
                 if (mPreference2 == "")
@@ -207,6 +267,11 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
                 DBContent.getInstance().addPreferencesToRemoteContent(DBContent.getInstance().getActualUser());
                 //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 //startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            "Pas de preferences créées pour ce groupe!",
+                            Toast.LENGTH_LONG).show();
+                }
                 finish();
             }
         });
@@ -318,6 +383,23 @@ public class InterfacePreferences extends FragmentActivity implements OnMapReady
     @Override
     public void onLocationChanged(Location location) {
         handleNewLocation(location);
+    }
+    public Pair<Double,Double> getLocationFromAdresse(String addresse){
+        Geocoder coder = new Geocoder(this);
+        Pair<Double, Double> latlong = new Pair<>(-73.628182,45.502481);
+        try {
+            ArrayList<Address> adresses = (ArrayList<Address>) coder.getFromLocationName(addresse, 50);
+            for(Address add : adresses){
+                //if (statement) {//Controls to ensure it is right address such as country etc.
+                addreToLatitude = add.getLongitude();
+                addreToLongitude = add.getLatitude();
+                latlong = new Pair<>(addreToLatitude,addreToLongitude);
+                //}
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return latlong;
     }
 
 //    public GeoPoint getLocationFromAddress(String strAddress){

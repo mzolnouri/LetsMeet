@@ -52,10 +52,13 @@ public class ChooseGroup extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
         TextView tv_email = (TextView)header.findViewById(R.id.txtVwHeaderProfileEmailH);
-        tv_email.setText(DBContent.getInstance().getActualUser().getCourriel());
+        if(tv_email != null )
+            tv_email.setText(DBContent.getInstance().getActualUser().getCourriel());
         mViewImage =(ImageView)header.findViewById(R.id.imageViewHeaderH);
-        actualUserImage = DBContent.getInstance().getActualUser().getPhotoEnBitmap();
-        mViewImage.setImageBitmap(actualUserImage);
+        if(mViewImage != null) {
+            actualUserImage = DBContent.getInstance().getActualUser().getPhotoEnBitmap();
+            mViewImage.setImageBitmap(actualUserImage);
+        }
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
         displayView(R.id.nav_home);

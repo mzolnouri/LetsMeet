@@ -13,7 +13,7 @@
             android:id="@+id/txtVwLieuMsgCR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dip"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:text="Lieu de rencontre : "
             />
@@ -22,7 +22,7 @@
             android:layout_toRightOf="@+id/txtVwLieuMsgCR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dip"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:text=" ... "
             />
@@ -31,7 +31,7 @@
             android:layout_below="@+id/txtVwLieuMsgCR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dip"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:text="Date de rencontre : "
             />
@@ -41,26 +41,26 @@
             android:layout_below="@+id/txtVwLieuCR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dip"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:text=" ... "
             />
         <TextView
             android:id="@+id/txtBattery"
-            android:layout_below="@+id/txtVwDateRencontreCR"
+            android:layout_below="@+id/txtVwDateRencontreMsgCR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dip"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:text="Niveau Battery: "
             />
         <TextView
             android:id="@+id/txtNiveauBattery"
             android:layout_toRightOf="@+id/txtBattery"
-            android:layout_below="@+id/txtVwDateRencontreMsgCR"
+            android:layout_below="@+id/txtVwDateRencontreCR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dip"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:text=""
             />

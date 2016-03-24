@@ -69,6 +69,7 @@ public class UserAdapter extends BaseAdapter {
 
         final Utilisateur data = (Utilisateur) fData.get(position);
         fV.title.setText(data.getCourriel());
+        //fV.imageView.setImageBitmap(data.getPhotoEnBitmap());
         Boolean checkedBox = data.getCheckedBox();
         if(checkedBox == null)
             checkedBox = false;
@@ -77,16 +78,17 @@ public class UserAdapter extends BaseAdapter {
 
         // Set image if exists
         try {
-
-            if (data.getPhotoEnBitmap() != null) {
-                fV.imageView.setImageBitmap(data.getPhotoEnBitmap());
+            Bitmap bm=data.getPhotoEnBitmap();
+            if ( bm!= null) {
+                fV.imageView.setImageBitmap(bm);
             } else {
                 fV.imageView.setImageResource(R.drawable.ic_photos);
             }
             // Seting round image
-            Bitmap bm = BitmapFactory.decodeResource(view.getResources(), R.drawable.ic_photos); // Load default image
-            fRoundImage = new RoundImage(bm);
-            fV.imageView.setImageDrawable(fRoundImage);
+          //  Bitmap bm = BitmapFactory.decodeResource(view.getResources(), R.drawable.ic_photos); // Load default image
+           // fRoundImage = new RoundImage(bm);
+
+          //  fV.imageView.setImageDrawable(fRoundImage);
         } catch (OutOfMemoryError e) {
             // Add default picture
             fV.imageView.setImageDrawable(this.fC.getDrawable(R.drawable.ic_photos));

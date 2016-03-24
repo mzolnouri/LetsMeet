@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import com.google.android.gms.location.LocationListener;
 
@@ -19,6 +21,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -36,6 +39,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class IConfirmationPreferences extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener, AdapterView.OnItemSelectedListener {
 
@@ -49,6 +55,10 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
     TextView DateRencontreMsg = null;
     TextView DateRencontre = null;
     private Button btnRevenirMP = null;
+    private double addreToLatitude;
+    private double addreToLongitude;
+    private String lieu = "2500, chemin de Polytechnique, Montreal, Canada";
+
 
     /* Pop up */
     ContentResolver fResolver;
@@ -74,18 +84,23 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
         fGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
 
         fResolver = this.getContentResolver();
-        RencontreConfirme rencontreConfirme=DBContent.getInstance().recupereResultatVoteRencontre(DBContent.getInstance().getActualGroupId());
-        String l = rencontreConfirme.getLieu();
-        String d = rencontreConfirme.getDate();
-
-
         lieuRencontreMsg = (TextView) findViewById(R.id.txtVwLieuMsgCR);
         lieuRencontre = (TextView) findViewById(R.id.txtVwLieuCR);
         DateRencontreMsg = (TextView) findViewById(R.id.txtVwDateRencontreMsgCR);
         DateRencontre = (TextView) findViewById(R.id.txtVwDateRencontreCR);
-        lieuRencontre.setText(l);
-        DateRencontre.setText(d);
+        RencontreConfirme rencontreConfirme = DBContent.getInstance().recupereResultatVoteRencontre(DBContent.getInstance().getActualGroupId());
+        if(rencontreConfirme!=null)
+        {
+            lieu = rencontreConfirme.getLieu();
+            String d = rencontreConfirme.getDate();
+            lieuRencontre.setText(lieu);
+            DateRencontre.setText(d);
+        }else{
+            lieuRencontre.setText("Pas encore confirmée pour ce groupe!");
+            DateRencontre.setText("Pas encore confirmée pour ce groupe!");
+        }
         btnRevenirMP = (Button) findViewById(R.id.btnAnnulerP);
+
         btnRevenirMP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +110,7 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
             }
         });
         TextView niveauBattrie = (TextView)findViewById(R.id.txtNiveauBattery);
-        niveauBattrie.setText(String.valueOf(getBatteryLevel())+"%");
+        niveauBattrie.setText(String.valueOf(getBatteryLevel()) + "%");
     }
 
     @Override
@@ -147,9 +162,24 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
         fMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        fMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        LatLng sydney = new LatLng(-73.628182,45.502481);
+        fMap.addMarker(new MarkerOptions().position(sydney).title("Location"));
         fMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+    public Pair<Double,Double> getLocationFromAdresse(String addresse){
+        Geocoder coder = new Geocoder(this);
+        Pair<Double, Double> latlong = new Pair<>(-73.628182,45.502481);
+        try {
+            ArrayList<Address> adresses = (ArrayList<Address>) coder.getFromLocationName(addresse, 50);
+            for(Address add : adresses){
+                addreToLatitude = add.getLongitude();
+                addreToLongitude = add.getLatitude();
+                latlong = new Pair<>(addreToLatitude,addreToLongitude);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return latlong;
     }
 
     @Override
@@ -176,8 +206,12 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
 
     private void handleNewLocation(Location location) {
         Log.d(TAG, location.toString());
+        Pair<Double, Double> ll = new Pair<>(0.0,0.0);
+        ll = getLocationFromAdresse(lieu);
         double currentLatitude = location.getLatitude();
         double currentLongitude = location.getLongitude();
+        currentLatitude = ll.first;
+        currentLongitude = ll.second;
         LatLng latLng = new LatLng(currentLatitude, currentLongitude);
         MarkerOptions options = new MarkerOptions().position(latLng).title("Actual location");
         fMap.addMarker(options);
@@ -222,4 +256,6 @@ public class IConfirmationPreferences extends FragmentActivity implements OnMapR
     public void onNothingSelected(AdapterView<?> parent) {
         // TODO Auto-generated method stub
     }
+
+
 }

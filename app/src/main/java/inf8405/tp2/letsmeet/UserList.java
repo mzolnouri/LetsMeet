@@ -75,13 +75,15 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
         //DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
         fUtilisateurs = new ArrayList<>();
         Map<String,Utilisateur> myMap=DBContent.getInstance().GetUsersFromGroup(DBContent.getInstance().getActualGroupId());
+        fListView = (ListView) findViewById(R.id.lstVwcontacts_list);
         for(Map.Entry<String, Utilisateur> entry : myMap.entrySet())
         {
             fUtilisateurs.add(entry.getValue());
+
         }
 
         fResolver = this.getContentResolver();
-        fListView = (ListView) findViewById(R.id.lstVwcontacts_list);
+
 
         if (fUtilisateurs != null) {
             Log.e("count", "" + fUtilisateurs.size());
@@ -101,11 +103,11 @@ public class UserList extends FragmentActivity implements OnMapReadyCallback, Go
 
                     DBContent dbContent=DBContent.getInstance();
                     Utilisateur utilisateurData = fUtilisateurs.get(i);
+                    Position position=DBContent.getInstance().GetUserPosition(utilisateurData.getId());
                     Toast.makeText(UserList.this, "You've selected: " + utilisateurData.getCourriel(), Toast.LENGTH_LONG).show();
-                    DBContent.getInstance().GetUserPosition(DBContent.getInstance().getActualUserId());
-                    DBContent.getInstance().GetUserPosition(utilisateurData.getId());
-                    double currentLatitude = utilisateurData.getPosition().getLatitude();
-                    double currentLongitude = utilisateurData.getPosition().getLongitude();
+
+                    double currentLatitude = position.getLatitude();
+                    double currentLongitude = position.getLongitude();
                     LatLng latLng = new LatLng(currentLatitude, currentLongitude);
                     MarkerOptions options = new MarkerOptions().position(latLng).title("Location of " + utilisateurData.getCourriel());
                     fMap.clear();

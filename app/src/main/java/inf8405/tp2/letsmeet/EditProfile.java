@@ -157,10 +157,6 @@ public class EditProfile extends Activity {
                 && !fLastPassInvalide && !fNewPassCaseEmpty) {
 
             /* Ici on met a jour les infos de l'utilisateur */
-            /*To do: Create getUtilisateurCourant() */
-            // Utilisateur utilisateurCourant = getUtilisateurCourant();
-            // utilisateurCourant.setPassword(fNewPassword);
-            // utilisateurCourant.setPhotoEnBitmap(bp);
             if(fLastPassword.equals(DBContent.getInstance().getActualUser().getPassword())) {
                 DBContent.getInstance().getActualUser().setPassword(fNewPassword);
                 if(bp != null)
@@ -270,8 +266,8 @@ public class EditProfile extends Activity {
                 String picturePath = c.getString(columnIndex);
                 c.close();
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-                Log.w("path of image from gallery......******************.........", picturePath+"");
-                Bitmap bp = Bitmap.createScaledBitmap(thumbnail,64,64,false);
+                //Log.w("path of image from gallery......******************.........", picturePath+"");
+                bp = Bitmap.createScaledBitmap(thumbnail,64,64,false);
                 viewImage.setImageBitmap(bp);
             }
         }
