@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LetsMeet.iml" filepath="$PROJECT_DIR$/LetsMeet.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/json-20151123/json-20151123.iml" filepath="$PROJECT_DIR$/json-20151123/json-20151123.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okhttp-3.2.0/okhttp-3.2.0.iml" filepath="$PROJECT_DIR$/okhttp-3.2.0/okhttp-3.2.0.iml" />
     </modules>
   </component>
 </project>

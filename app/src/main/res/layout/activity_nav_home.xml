@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/idNavHome">
+
+    <RadioGroup
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/rdGrpListChoixDeGroup"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="90dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RadioButton
+            android:id="@+id/rdBtnpGroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Groupe 1"
+            />
+        <RadioButton android:id="@+id/rdBtnpGroup2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Groupe 2"
+            />
+        <RadioButton android:id="@+id/rdBtnpGroup3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Groupe 3"
+            />
+        <RadioButton android:id="@+id/rdBtnpGroup4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Groupe 4"
+            />
+    </RadioGroup>
+    <Button
+        android:id="@+id/btnPreferencesCG"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rdGrpListChoixDeGroup"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Préférences"
+        />
+    <Button
+        android:id="@+id/btnListeUtilisateursCG"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btnPreferencesCG"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Liste des utilisateurs"
+        />
+    <Button
+        android:id="@+id/btnCreateRencontreCG"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btnListeUtilisateursCG"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Creer une rencontre"
+        />
+    <Button
+        android:id="@+id/btnConfirmationRencontreCG"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btnCreateRencontreCG"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Voir rencontre confirmée"
+        />
+
+</RelativeLayout>

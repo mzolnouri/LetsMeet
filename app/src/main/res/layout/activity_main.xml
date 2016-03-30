@@ -7,10 +7,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="zemmahi.youssef.letsmeet.MainActivity">
+    tools:context="inf8405.tp2.letsmeet.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Hello World!"
+        android:id="@+id/txtVwHeaderProfileEmailH" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/txtVwHeaderProfileEmailH"
+        android:layout_marginBottom="52dp" />
+
 </RelativeLayout>

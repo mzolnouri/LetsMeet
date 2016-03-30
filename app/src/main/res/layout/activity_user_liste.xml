@@ -1,0 +1,86 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        tools:context=".MainActivity">
+
+        <FrameLayout
+            android:id="@+id/frmLyoutContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#5b74a8">
+
+            <TextView
+                android:id="@+id/txtVwSearchContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Search.."
+                android:textColor="#000"
+                android:textSize="16dp"></TextView>
+
+            <SearchView
+                android:id="@+id/srchViewSearchContacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="#5b74a8"
+                android:drawableLeft="@android:drawable/ic_menu_search"
+                android:padding="8dp"
+                android:singleLine="true"></SearchView>
+        </FrameLayout>
+
+        <ListView
+            android:id="@+id/lstVwcontacts_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadeScrollbars="false"
+            android:layout_below="@+id/frmLyoutContacts"></ListView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+        <FrameLayout
+            android:id="@+id/frmLyoutMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#5b74a8">
+
+            <TextView
+                android:id="@+id/txtVwTileToolBarMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Localize the user on Google Maps.."
+                android:textColor="#000"
+                android:textSize="16dp"></TextView>
+        </FrameLayout>
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:layout_below="@+id/frmLyoutMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            tools:context=".UserList"></fragment>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/map"
+            android:text="My first map :) "></TextView>
+
+    </RelativeLayout>
+</LinearLayout>

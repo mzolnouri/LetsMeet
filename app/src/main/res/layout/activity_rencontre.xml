@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtVwDonner3LieuxMsgR"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="Entrez les 3 lieux proposés pour la rencontre"
+        android:gravity="center"
+        android:textSize="17dp"
+        android:textColor="#0b1"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/txtVwLieu1MsgR"
+        android:layout_below="@+id/txtVwDonner3LieuxMsgR"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="40dp"
+        android:text="Lieu 1: "
+        android:gravity="center"
+        />
+    <EditText
+        android:id="@+id/edtTxtLieu1R"
+        android:layout_below="@+id/txtVwDonner3LieuxMsgR"
+        android:layout_toRightOf="@+id/txtVwLieu1MsgR"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:hint="Entrez première adresse"
+        android:inputType="textMultiLine"
+        />
+    <TextView
+        android:id="@+id/txtVwLieu2MsgR"
+        android:layout_below="@+id/txtVwLieu1MsgR"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="50dp"
+        android:text="Lieu 2: "
+        android:gravity="center"
+        />
+    <EditText
+        android:id="@+id/edtTxtLieu2R"
+        android:layout_below="@+id/edtTxtLieu1R"
+        android:layout_toRightOf="@+id/txtVwLieu2MsgR"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:hint="Entrez deuxième adresse"
+        android:inputType="textMultiLine"
+        />
+    <TextView
+        android:id="@+id/txtVwLieu3MsgR"
+        android:layout_below="@+id/txtVwLieu2MsgR"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="50dp"
+        android:text="Lieu 3: "
+        android:gravity="center"
+        />
+    <EditText
+        android:id="@+id/edtTxtLieu3R"
+        android:layout_below="@+id/edtTxtLieu2R"
+        android:layout_toRightOf="@+id/txtVwLieu3MsgR"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:hint="Entrez troisième adresse"
+        android:inputType="textMultiLine"
+        />
+    <TextView
+        android:id="@+id/txtVwDesMsgR"
+        android:layout_below="@+id/txtVwLieu3MsgR"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="50dp"
+        android:text="Description: "
+        android:gravity="center"
+        />
+    <EditText
+        android:id="@+id/edtTxtDescR"
+        android:layout_below="@+id/edtTxtLieu3R"
+        android:layout_toRightOf="@+id/txtVwDesMsgR"
+        android:layout_width="235dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:hint="Entrez une description "
+        android:inputType="textMultiLine"
+        />
+    <Button
+        android:id="@+id/btnCreerRencontreR"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/txtVwDesMsgR"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="Créer la rencontre"
+        android:enabled="true"
+        />
+</RelativeLayout>
